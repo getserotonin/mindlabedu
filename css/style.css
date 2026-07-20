@@ -1,0 +1,623 @@
+        /* --- DESIGN SYSTEM & REFACTORING --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        :root {
+            --brand-primary: #3182CE;
+            --brand-dark: #0F172A;
+            --brand-light: #F8FAFC;
+            --brand-accent: #E0F2FE;
+            --brand-gradient: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            --text-main: #334155;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 30px;
+            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-md: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            color: var(--text-main);
+            background-color: var(--brand-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- TYPOGRAPHY & BUTTONS --- */
+        /* 5. Kurangi jarak bawah judul di tiap section (Sebelumnya 48px) */
+        .section-title {
+            text-align: center;
+            color: var(--brand-dark);
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 32px; 
+        }
+
+        .section-title span {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--brand-gradient);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -10px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--brand-dark);
+            border: 2px solid #E2E8F0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: var(--brand-light);
+            border-color: #CBD5E1;
+            transform: translateY(-3px);
+        }
+
+         /* Styling untuk Tombol Non-Aktif (Disabled) */
+        .btn-disabled {
+            background: #E2E8F0 !important;       /* Mengubah warna latar jadi abu-abu terang */
+            color: #94A3B8 !important;            /* Mengubah warna teks jadi abu-abu pudar */
+            border-color: #CBD5E1 !important;      /* Menyesuaikan border untuk tombol secondary */
+            pointer-events: none;                 /* SAKTI: Ini yang mematikan fungsi klik */
+            cursor: not-allowed;                  /* Mengubah kursor menjadi tanda stop/larangan */
+            box-shadow: none !important;          /* Menghilangkan efek bayangan */
+            transform: none !important;           /* Menghilangkan efek naik saat di-hover */
+        }   
+
+        section {
+            padding: 50px 0;
+        }
+
+        /* --- MODERN NAVIGATION (GLASSMORPHISM) --- */
+        /* Mengurangi padding atas-bawah navbar agar lebih naik dan ramping */
+        nav {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 10px 0; /* Dikurangi dari sebelumnya 18px */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(241, 245, 249, 0.8);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1E3A8A;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+
+        .logo span {
+            color: var(--brand-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--brand-primary);
+        }
+
+        /* --- HERO SECTION --- */
+       /* 2. Rapatkan jarak atas-bawah di area Hero (Sebelumnya 120px) */
+        .hero {
+        background: radial-gradient(100% 100% at 50% 0%, rgba(224, 242, 254, 0.6) 0%, rgba(248, 250, 252, 0) 100%);
+        text-align: center;
+        padding: 40px 0 40px 0; /* Padding atas dikurangi dari 60px menjadi 40px */
+        }
+
+        .announcement {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--brand-accent);
+            color: #0369A1;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            border: 1px solid rgba(186, 230, 253, 0.5);
+
+            animation: kedipLembut 2s infinite ease-in-out;
+            }
+
+            /* 2. Tambahkan pasukan keyframes ini di paling bawah file style.css Anda */
+            @keyframes kedipLembut {
+                0%, 100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.4;          /* Membuatnya agak transparan saat berkedip */
+                    transform: scale(0.97);  /* Efek mengecil super tipis agar dinamis */
+                }
+            }
+
+        /* 3. Kurangi jarak bawah judul utama di Hero */
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            line-height: 1.2;
+            letter-spacing: -0.04em;
+            max-width: 900px;
+            margin: 0 auto 16px auto; /* Dikurangi dari 24px */
+        }
+
+        .hero h1 span {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 4. Kurangi jarak bawah kalimat sub-judul sebelum tombol */
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 24px auto; /* Dikurangi dari 40px */
+            font-weight: 500;
+        }
+
+        /* --- FEATURE CARDS --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        /* 7. Kurangi padding di dalam kartu fitur agar lebih compact */
+        .feature-card {
+            background-color: var(--white);
+            padding: 36px 28px; /* Dikurangi dari 48px 36px */
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #F1F5F9;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: #E2E8F0;
+        }
+
+        /* 6. Rapatkan pembungkus ikon pada kartu agar tidak terlalu makan tempat */
+        .feature-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            background-color: var(--brand-light);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px; /* Dikurangi dari 24px */
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon-wrapper {
+            background-color: var(--brand-accent);
+        }
+
+        .feature-card h3 {
+            color: var(--brand-dark);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- PROGRAMS --- */
+        .programs {
+            background-color: #F1F5F9;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 32px;
+        }
+
+        .program-box {
+            background-color: var(--white);
+            padding: 48px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #E2E8F0;
+        }
+
+        .program-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .subject-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .subject-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .subject-list li::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--brand-primary);
+            border-radius: 50%;
+        }
+
+        /* --- WHY US (BENEFITS) --- */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 56px;
+        }
+
+        .benefit-card {
+            background-color: var(--white);
+            padding: 32px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--brand-primary);
+        }
+
+        .benefit-card h4 {
+            color: var(--brand-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .benefit-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .quote-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            max-width: 850px;
+            margin: 56px auto 0 auto;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #E2E8F0;
+            position: relative;
+        }
+
+        .quote-box p {
+            font-size: 1.15rem;
+            color: var(--brand-dark);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* --- EVENTS (CARDS PREMIUM) --- */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .event-card {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .event-badge {
+            background-color: #EF4444;
+            color: var(--white);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            align-self: flex-start;
+            margin: 32px 32px 0 32px;
+            border-radius: 6px;
+        }
+
+        .event-content {
+            padding: 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-title {
+            color: var(--brand-dark);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .event-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .event-content p {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        /* --- PHILOSOPHY (MIND GLOW) --- */
+        .philosophy {
+            background-color: var(--brand-dark);
+            color: var(--white);
+            position: relative;
+        }
+
+        .philosophy .section-title {
+            color: var(--white);
+        }
+
+        .mind-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .mind-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px 32px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition);
+        }
+
+        .mind-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .mind-letter {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--brand-primary);
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(49, 130, 206, 0.3);
+        }
+
+        .mind-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            letter-spacing: -0.01em;
+        }
+
+        .mind-card p {
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #020617;
+            color: #64748B;
+            text-align: center;
+            padding: 56px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #0F172A;
+        }
+
+        .footer-info {
+            color: #94A3B8;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.75rem; }
+            .programs-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            section { padding: 70px 0; }
+            .hero { padding: 80px 0 60px 0; }
+            .hero h1 { font-size: 2.25rem; }
+        }
+
+        @media (max-width: 576px) {
+            .subject-list { grid-template-columns: 1fr; }
+            .program-box { padding: 32px; }
+        }
+
+        /* ==========================================================================
+        STYLING TABEL SESI BELAJAR MODERN
+        ========================================================================== */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto; /* Supaya kalau dibuka di HP bisa digeser mulus kesamping */
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #E2E8F0;
+            margin-top: 24px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .schedule-table th {
+            background-color: var(--brand-dark);
+            color: var(--white);
+            padding: 16px 24px;
+            font-weight: 600;
+        }
+
+        .schedule-table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid #F1F5F9;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Efek hover baris tabel */
+        .schedule-table tr:hover td {
+            background-color: #F8FAFC;
+        }
+
+        /* Desain Badge Status */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-tersedia {
+            background-color: #DCFCE7;
+            color: #15803D;
+        }
+
+        .badge-penuh {
+            background-color: #FEE2E2;
+            color: #B91C1C;
+        }
+
+        /* Tampilan Loading */
+        .loading-text {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* 1. Membatasi lebar maksimal tabel agar lebih padat */
+table, .table {
+   width: 100% !important; 
+    max-width: none !important; /* Hapus batasan lebar dari tabel */
+    margin: 0 !important;       /* Hapus margin tengah agar rata kiri */}
+
+/* 2. Mengatur porsi lebar masing-masing kolom */
+th:nth-child(1), td:nth-child(1) { width: 25% !important; }
+th:nth-child(2), td:nth-child(2) { width: 50% !important; }
+th:nth-child(3), td:nth-child(3) { width: 25% !important; }
+
+/* 3. MENGATASI TEKS KURUS & MENGURANGI WHITE SPACE */
+td {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    padding: 12px 16px !important;
+    vertical-align: middle !important;
+    color: #334155 !important;
+}
+
+/* 4. Menebalkan Header (Judul Kolom) Tabel */
+th {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    padding: 14px 16px !important;
+}
+
+/* 5. EFEK ZEBRA: Mewarnai baris genap agar white space tersamarkan */
+tbody tr:nth-child(even) {
+    background-color: #F8FAFC !important;
+}
+

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLab - Private Learning Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css"> 
+    <script src="js/form-handler.js"></script>
+
+    <!-- Font Awesome untuk Ikon Premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Panggilan file CSS Anda -->
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+
+    <!-- NAVBAR (GLASSMORPHISM) -->
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Mind<span>Lab</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="modul-ajar.html">Modul & Worksheet</a></li>
+                <li><a href="pendaftaran.html" class="btn" style="padding: 10px 24px; box-shadow: none; color: #ffffff; font-weight: 700;">Daftar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="container">
+            <span class="announcement">📢 Pendaftaran Siswa Baru Telah Dibuka</span>
+            <h1>Tumbuhkan Potensi Belajar Anak Secara <span>Mandiri & Personal</span></h1>
+            <p class="tagline">Pendampingan privat eksklusif berfokus pada eksplorasi bermakna, keberanian mencoba, dan tumbuh kembang karakter anak.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="pendaftaran.html" class="btn">Pilih Sesi Belajar</a>
+                <a href="modul-ajar.html" class="btn btn-secondary">Lihat Worksheet</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CORE FEATURES -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🏠</div>
+                    <h3>Door to Door</h3>
+                    <p>Kami hadir langsung di rumah Anda. Proses belajar berjalan lebih aman, fokus, dan nyaman tanpa lelah di perjalanan.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">👥</div>
+                    <h3>Private Session</h3>
+                    <p>Pendampingan personal intensif secara eksklusif (1 siswa) atau kelompok sangat kecil (2-3 siswa) per sesi.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">⏱️</div>
+                    <h3>1 Jam Efektif</h3>
+                    <p>Durasi belajar dirancang optimal (1 jam per mata pelajaran) menjaga fokus serta konsentrasi anak tetap prima.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMS & SESSIONS -->
+    <section class="programs">
+        <div class="container">
+            <h2 class="section-title">Program <span>Pilihan Terbaik</span></h2>
+            <div class="programs-grid">
+                <!-- Program TK -->
+                <div class="program-box">
+                    <div class="program-header">🎒 Tingkat Prasekolah (TK A & TK B)</div>
+                    <ul class="subject-list">
+                        <li>Mengaji Dasar</li>
+                        <li>Calistung Dasar</li>
+                    </ul>
+                </div>
+                <!-- Program SD -->
+                <div class="program-box">
+                    <div class="program-header">📘 Sekolah Dasar (SD Kelas 1-6)</div>
+                    <ul class="subject-list">
+                        <li>Matematika</li>
+                        <li>Bahasa Indonesia</li>
+                        <li>Bahasa Inggris</li>
+                        <li>IPAS</li>
+                        <li>persiapan TKA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION LIVE JADWAL -->
+<section class="live-schedule" style="background-color: #FFFFFF; max-width: 800px; margin: 0 auto;"
+    <div class="container">
+        <h2 class="section-title">Kuota & <span>Jadwal Sesi Belajar</span></h2>
+        <p style="text-align: center; color: var(--text-muted); margin-top: -24px; margin-bottom: 32px; font-weight: 500;">
+            Dipantau langsung secara real-time dari database MindLab Studio.
+        </p>
+        
+        <div class="table-responsive">
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Hari</th>
+                        <th>Sesi & Waktu Belajar</th>
+                        <th style="text-align: center;">Status Slot</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-data-rows">
+                    <!-- Data dari Google Sheets akan masuk ke sini secara otomatis -->
+                    <tr>
+                        <td colspan="3" class="loading-text">🔄 Sedang menghubungkan ke database MindLab...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- SCRIPT UNTUK MENARIK DATA DARI APP SCRIPT -->
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+        const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxO_DFsqF70TyHBDQYxNF8iCNlNzEh5-KGfLlp_5ulb6izx0ReFGi2wzzer-9yrmzEApA/exec"; 
+        const tableBody = document.getElementById("schedule-data-rows");
+
+        fetch(BACKEND_URL)
+            .then(response => response.json())
+            .then(data => {
+                
+                // 1. CEK JIKA DATA EROR ATAU KOSONG
+                if (!data || data.length === 0 || data.error) {
+                    let detailError = "Penyebab: ";
+                    if (!data) {
+                        detailError += "Data dari Google bernilai null/kosong.";
+                    } else if (data.length === 0) {
+                        detailError += "Tab 'SlotPenuh' terdeteksi kosong (Baris 2 ke bawah belum ada data).";
+                    } else if (data.error) {
+                        detailError += data.error; 
+                    }
+
+                    // Tampilkan pesan eror ke layar website
+                    tableBody.innerHTML = `<tr><td colspan="3" class="loading-text" style="color: #EF4444;">❌ Gagal memuat jadwal. Hubungi Admin.</td></tr>`;
+                    
+                    // Catat pesan detail di console untuk keperluan perbaikan
+                    console.log(detailError); 
+                    
+                    // Hentikan eksekusi kode sampai di sini
+                    return; 
+                } // <--- INI ADALAH KURUNG TUTUP YANG HILANG DI KODEMU SEBELUMNYA
+
+                // 2. JIKA DATA BERHASIL DITARIK (SUKSES)
+                // Kosongkan text loading "Sedang menghubungkan..."
+                tableBody.innerHTML = "";
+
+                // Looping data dari Google Sheets untuk dimasukkan ke baris tabel HTML
+                // Looping menggunakan data yang sudah dibatasi
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    
+                    const statusText = row[1] || "Tersedia"; 
+                    const isFull = statusText.toLowerCase() === "penuh";
+                    
+                    // Menentukan warna status: Merah jika penuh, Hijau jika tersedia
+                    const statusColor = isFull ? "#EF4444" : "#10B981"; 
+                    const statusIcon = isFull ? "fa-ban" : "fa-check-circle";
+                    
+                    tr.innerHTML = `
+                        <!-- Ikon Kalender: Warna Biru Cerah -->
+                        <td>
+                            <i class="fas fa-calendar-day me-2" style="color: #3B82F6; font-size: 1.1em;"></i> 
+                            ${row[2]}
+                        </td>
+                        
+                        <!-- Ikon Jam: Warna Oranye Hangat -->
+                        <td>
+                            <i class="fas fa-clock me-2" style="color: #F59E0B; font-size: 1.1em;"></i> 
+                            ${row[3]}
+                        </td>
+                        
+                        <!-- Ikon Status: Merah/Hijau Menyesuaikan Kondisi -->
+                        <td style="text-align: center;">
+                            <span class="status-badge ${isFull ? 'status-full' : 'status-available'}" style="color: ${statusColor}; font-weight: 600;">
+                                <i class="fas ${statusIcon} me-1"></i> ${statusText}
+                            </span>
+                        </td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching sheet data:", error);
+                tableBody.innerHTML = `<tr><td colspan="3" class="loading-text" style="color: #EF4444;">❌ Koneksi terputus. Coba refresh halaman.</td></tr>`;
+            });
+    });
+</script>
+
+    <!-- WHY US (BENEFITS) -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Mengapa Memilih <span>MindLab?</span></h2>
+            <div class="why-us-grid">
+                <div class="benefit-card">
+                    <h4>⭐ Guru Bersertifikasi</h4>
+                    <p>Pengajar kompeten lulusan pendidikan formal yang bersertifikasi resmi (PPG).</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>⭐ Berpengalaman</h4>
+                    <p>Pendekatan mengajar ramah anak yang adaptif, interaktif, dan teruji di lapangan.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>⭐ Kebutuhan Personal</h4>
+                    <p>Kurikulum dan tempo pembelajaran disesuaikan penuh dengan kesiapan belajar anak.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>⭐ Laporan Berkala</h4>
+                    <p>Progres pencapaian belajar dipantau teliti dan dilaporkan berkala secara transparan.</p>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>"Setiap anak memiliki ritme dan dunianya sendiri. Tugas kami bukan menuntut mereka mengerti seketika, tetapi menyalakan pemantik rasa ingin tahu agar mereka bangga bertumbuh."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS SECTION -->
+    <section class="events">
+        <div class="container">
+            <h2 class="section-title">Agenda & <span>Kegiatan Terdekat</span></h2>
+            <div class="events-grid">
+                <!-- Event 1 -->
+                <div class="event-card">
+                    <span class="event-badge">Freetrial</span>
+                    <div class="event-content">
+                        <div>
+                            <h3 class="event-title">Kelas Uji Coba Gratis (Free Trial Session)</h3>
+                            <p class="event-meta">📅 Kuota Terbatas | 📍 Area Layanan Mandiri</p>
+                            <p>Evaluasi awal untuk mengenali profil belajar anak secara langsung sebelum memulai komitmen bimbingan penuh bersama MindLab.</p>
+                        </div>
+                        <a href="#" class="btn btn-disabled" style="padding: 10px 0; font-size:0.9rem;">Soon</a>
+                    </div>
+                </div>
+                <!-- Event 2 -->
+                <div class="event-card">
+                    <span class="event-badge" style="background-color: var(--brand-primary);">E-Book Launch</span>
+                    <div class="event-content">
+                        <div>
+                            <h3 class="event-title">Rilis E-Worksheet Interaktif Anak Prasekolah</h3>
+                            <p class="event-meta">📂 Akses Digital | 📍 Unduhan Gratis</p>
+                            <p>Lembar kerja edukatif terstruktur yang dirancang khusus memicu aspek kognitif dan motorik halus anak usia dini.</p>
+                        </div>
+                        <a href="modul-ajar.html" class="btn btn-disabled" style="padding: 10px 0; font-size:0.9rem;">Soon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY (MIND) -->
+    <section class="philosophy">
+        <div class="container">
+            <h2 class="section-title">Filosofi <span>Ruang Belajar</span></h2>
+            <div class="mind-grid">
+                <div class="mind-card">
+                    <div class="mind-letter">M</div>
+                    <div class="mind-title">Meaningful</div>
+                    <p>Membangun pembelajaran relevan yang berakar kuat pada pemahaman kontekstual anak.</p>
+                </div>
+                <div class="mind-card">
+                    <div class="mind-letter">I</div>
+                    <div class="mind-title">Inspiring</div>
+                    <p>Menstimulasi imajinasi kreatif dan memicu rasa ingin tahu alami dalam diri anak.</p>
+                </div>
+                <div class="mind-card">
+                    <div class="mind-letter">N</div>
+                    <div class="mind-title">Nurturing</div>
+                    <p>Menjaga kenyamanan emosional anak lewat pengondisian lingkungan belajar yang positif.</p>
+                </div>
+                <div class="mind-card">
+                    <div class="mind-letter">D</div>
+                    <div class="mind-title">Development</div>
+                    <p>Fokus penuh pada pengembangan logika berpikir logis, karakter mandiri, dan capaian akademik.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-info">
+                <strong>MindLab Private Learning Studio</strong><br>
+                Email: mindlab.edulearn@gmail.com | Konsultasi: 0878-7961-3867 (Admin)
+            </div>
+            <p>&copy; 2026. Made with ❤️ by Mindlab</p>
+        </div>
+    </footer>
+
+</body>
+</html>
