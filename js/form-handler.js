@@ -51,8 +51,8 @@ class FormUI {
         
         // Definisikan master data seluruh sesi yang ada di MindLab
         this.masterSessions = [
-            "Pagi (08.30 - 09.30)",
-            "Sore (15.30 - 16.30)"
+            "Siang (14.30 - 15.30)",
+            "Sore (16.00 - 17.00)"
         ];
     }
 
