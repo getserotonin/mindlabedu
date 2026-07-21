@@ -3,13 +3,12 @@
  * Mengelola integrasi formulir dinamis dengan Google Sheets API secara akuntabel.
  */
 
-// 1. CLASS API: Bertanggung jawab mutlak terhadap koneksi jaringan ke Google Apps Script
+// 1. CLASS API
 class MindLabAPI {
     constructor(endpointUrl) {
         this.endpointUrl = endpointUrl;
     }
 
-    // Mengambil data sesi yang penuh dari Google Sheets
     async getFullSessions() {
         try {
             const response = await fetch(`${this.endpointUrl}?action=checkSlots`);
@@ -17,11 +16,10 @@ class MindLabAPI {
             return await response.json(); 
         } catch (error) {
             console.error("Gagal memuat kuota slot:", error);
-            return []; // Kembalikan array kosong sebagai fallback keamanan
+            return []; 
         }
     }
 
-    // Mengirimkan semua data form ke Google Sheets
     async submitRegistration(formData) {
         try {
             const response = await fetch(this.endpointUrl, {
@@ -38,17 +36,15 @@ class MindLabAPI {
     }
 }
 
-// 2. CLASS UI: Mengelola interaksi elemen DOM, validasi visual, dan state loading
+// 2. CLASS UI
 class FormUI {
     constructor() {
         this.form = document.getElementById('formMindLab');
-        // Tidak lagi menggunakan getElementById untuk hari, melainkan dicari via querySelector nanti
         this.sessionSelect = document.getElementById('pilihanSesi');
         this.submitBtn = document.getElementById('btnSubmit');
         this.loadingSesi = document.getElementById('loadingSesi');
         this.loadingSubmit = document.getElementById('loadingSubmit');
         
-        // Definisikan master data seluruh sesi yang ada di MindLab
         this.masterSessions = [
             "Siang (14.30 - 15.30)",
             "Sore (16.00 - 17.00)"
@@ -58,11 +54,9 @@ class FormUI {
     toggleSessionLoading(isLoading) {
         this.loadingSesi.style.display = isLoading ? 'block' : 'none';
         
-        // Disable/enable semua checkbox hari
         const dayCheckboxes = document.querySelectorAll('input[name="pilihanHari[]"]');
         dayCheckboxes.forEach(cb => cb.disabled = isLoading);
         
-        // Cek apakah ada minimal 1 hari yang dicentang
         const isAnyChecked = Array.from(dayCheckboxes).some(cb => cb.checked);
         this.sessionSelect.disabled = isLoading || !isAnyChecked;
     }
@@ -73,11 +67,9 @@ class FormUI {
         this.submitBtn.innerText = isLoading ? "Sedang Mengirim..." : "Kirim Data Pendaftaran";
     }
 
-    // Render pilihan jam sesi secara dinamis berdasarkan HARI-HARI yang dicentang
     renderSessionOptions(selectedDays, fullSessionsList) {
         this.sessionSelect.innerHTML = '';
         
-        // Jika tidak ada hari yang dicentang
         if (!selectedDays || selectedDays.length === 0) {
             this.sessionSelect.innerHTML = '<option value="">Pilih Hari Terlebih Dahulu...</option>';
             this.sessionSelect.disabled = true;
@@ -92,7 +84,6 @@ class FormUI {
         let availableSlotsCount = 0;
 
         this.masterSessions.forEach(sesi => {
-            // Sesi hanya bisa dipilih jika KOSONG DI SEMUA HARI yang dipilih
             const isAvailableOnAllSelectedDays = selectedDays.every(day => {
                 const identifier = `${day}-${sesi}`;
                 return !fullSessionsList.includes(identifier);
@@ -121,7 +112,6 @@ class FormUI {
         
         for (let [key, value] of formDataObj.entries()) {
             if (data[key]) {
-                // Jika key sudah ada (berarti data multiple seperti checkbox), ubah jadi array
                 if (!Array.isArray(data[key])) {
                     data[key] = [data[key]];
                 }
@@ -131,12 +121,11 @@ class FormUI {
             }
         }
 
-        // FORMATTING UNTUK GOOGLE SHEETS: Gabungkan array pilihanHari[] menjadi string
         if (data['pilihanHari[]']) {
             data['pilihanHari'] = Array.isArray(data['pilihanHari[]']) 
                 ? data['pilihanHari[]'].join(', ') 
                 : data['pilihanHari[]'];
-            delete data['pilihanHari[]']; // Hapus key lama agar rapi
+            delete data['pilihanHari[]'];
         }
 
         return data;
@@ -149,7 +138,7 @@ class FormUI {
     }
 }
 
-// 3. CLASS CONTROLLER (ORCHESTRATOR): Menghubungkan logik bisnis API dengan antarmuka UI
+// 3. CLASS CONTROLLER
 class FormController {
     constructor(apiInstance, uiInstance) {
         this.api = apiInstance;
@@ -158,10 +147,10 @@ class FormController {
     }
 
     init() {
-        // Daftarkan event listener untuk SETIAP checkbox hari
         const dayCheckboxes = document.querySelectorAll('input[name="pilihanHari[]"]');
         dayCheckboxes.forEach(cb => {
-            cb.addEventListener('change', () => this.handleDayChange());
+            // Kita kirimkan data event (e) saat diklik untuk keperluan validasi
+            cb.addEventListener('change', (e) => this.handleDayChange(e));
         });
 
         this.ui.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
@@ -175,10 +164,17 @@ class FormController {
         this.ui.toggleSessionLoading(false);
     }
 
-    handleDayChange() {
-        // Ambil semua value dari checkbox yang sedang dicentang
+    handleDayChange(event) {
         const checkedBoxes = document.querySelectorAll('input[name="pilihanHari[]"]:checked');
-        const selectedDays = Array.from(checkedBoxes).map(cb => cb.value); // Contoh output: ["Senin", "Rabu"]
+        
+        // LOGIKA PEMBATASAN MAKSIMAL 3 HARI
+        if (checkedBoxes.length > 3) {
+            event.target.checked = false; // Batalkan centang yang baru saja di-klik
+            alert("Maksimal Anda hanya bisa memilih 3 hari dalam sepekan.");
+            return; // Hentikan proses, jangan lanjut ke render jam sesi
+        }
+
+        const selectedDays = Array.from(document.querySelectorAll('input[name="pilihanHari[]"]:checked')).map(cb => cb.value); 
         
         this.ui.renderSessionOptions(selectedDays, this.fullSessionsCache);
     }
@@ -186,6 +182,17 @@ class FormController {
     async handleFormSubmit(event) {
         event.preventDefault();
         
+        // Tambahan validasi keamanan sebelum di-submit
+        const checkedBoxes = document.querySelectorAll('input[name="pilihanHari[]"]:checked');
+        if (checkedBoxes.length === 0) {
+            alert("Mohon pilih minimal 1 hari jadwal pembelajaran.");
+            return;
+        }
+        if (checkedBoxes.length > 3) {
+            alert("Maksimal hanya 3 hari jadwal pembelajaran.");
+            return;
+        }
+
         this.ui.toggleSubmitLoading(true);
         const payload = this.ui.getFormData();
         
@@ -202,12 +209,11 @@ class FormController {
     }
 }
 
-// --- INSTANSIASI DAN EKSEKUSI SISTEM ---
+// --- INSTANSIASI ---
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQCfI6qFuT9_XI7ir5jS5eR8UqsM6vufZu9uDzZA8qioYmsuVwc8SGneqfw-Y94615VQ/exec";
 
 const apiInstance = new MindLabAPI(GOOGLE_SCRIPT_URL);
 const uiInstance = new FormUI();
 const app = new FormController(apiInstance, uiInstance);
 
-// Jalankan sistem saat dokumen HTML siap
 document.addEventListener('DOMContentLoaded', () => app.init());
