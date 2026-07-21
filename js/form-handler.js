@@ -167,7 +167,7 @@ class FormController {
     handleDayChange(event) {
         const checkedBoxes = document.querySelectorAll('input[name="pilihanHari[]"]:checked');
         
-        // LOGIKA PEMBATASAN MAKSIMAL 3 HARI
+        // LOGIKA PEMBATASAN MAKSIMAL 3 HARIi
         if (checkedBoxes.length > 3) {
             event.target.checked = false; // Batalkan centang yang baru saja di-klik
             alert("Maksimal Anda hanya bisa memilih 3 hari dalam sepekan.");
