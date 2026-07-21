@@ -15,7 +15,6 @@ class MindLabAPI {
             const response = await fetch(`${this.endpointUrl}?action=checkSlots`);
             if (!response.ok) throw new Error("Respons jaringan bermasalah");
             return await response.json(); 
-            // Ekspektasi return: ["Senin-Sesi 1 (14.30)", "Rabu-Sesi 3 (17.30)"]
         } catch (error) {
             console.error("Gagal memuat kuota slot:", error);
             return []; // Kembalikan array kosong sebagai fallback keamanan
@@ -27,7 +26,7 @@ class MindLabAPI {
         try {
             const response = await fetch(this.endpointUrl, {
                 method: 'POST',
-                mode: 'no-cors', // Digunakan jika backend Apps Script tidak mengaktifkan CORS
+                mode: 'no-cors', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
@@ -43,7 +42,7 @@ class MindLabAPI {
 class FormUI {
     constructor() {
         this.form = document.getElementById('formMindLab');
-        this.daySelect = document.getElementById('pilihanHari');
+        // Tidak lagi menggunakan getElementById untuk hari, melainkan dicari via querySelector nanti
         this.sessionSelect = document.getElementById('pilihanSesi');
         this.submitBtn = document.getElementById('btnSubmit');
         this.loadingSesi = document.getElementById('loadingSesi');
@@ -58,8 +57,14 @@ class FormUI {
 
     toggleSessionLoading(isLoading) {
         this.loadingSesi.style.display = isLoading ? 'block' : 'none';
-        this.daySelect.disabled = isLoading;
-        this.sessionSelect.disabled = isLoading || !this.daySelect.value;
+        
+        // Disable/enable semua checkbox hari
+        const dayCheckboxes = document.querySelectorAll('input[name="pilihanHari[]"]');
+        dayCheckboxes.forEach(cb => cb.disabled = isLoading);
+        
+        // Cek apakah ada minimal 1 hari yang dicentang
+        const isAnyChecked = Array.from(dayCheckboxes).some(cb => cb.checked);
+        this.sessionSelect.disabled = isLoading || !isAnyChecked;
     }
 
     toggleSubmitLoading(isLoading) {
@@ -68,11 +73,12 @@ class FormUI {
         this.submitBtn.innerText = isLoading ? "Sedang Mengirim..." : "Kirim Data Pendaftaran";
     }
 
-    // Render pilihan jam sesi secara dinamis dan hilangkan jika terdeteksi penuh
-    renderSessionOptions(selectedDay, fullSessionsList) {
+    // Render pilihan jam sesi secara dinamis berdasarkan HARI-HARI yang dicentang
+    renderSessionOptions(selectedDays, fullSessionsList) {
         this.sessionSelect.innerHTML = '';
         
-        if (!selectedDay) {
+        // Jika tidak ada hari yang dicentang
+        if (!selectedDays || selectedDays.length === 0) {
             this.sessionSelect.innerHTML = '<option value="">Pilih Hari Terlebih Dahulu...</option>';
             this.sessionSelect.disabled = true;
             return;
@@ -86,10 +92,13 @@ class FormUI {
         let availableSlotsCount = 0;
 
         this.masterSessions.forEach(sesi => {
-            // Gabungkan string untuk mencocokkan dengan data blacklist dari Google Sheets (Contoh: "Senin-Sesi 1 (14.30)")
-            const identifier = `${selectedDay}-${sesi}`;
+            // Sesi hanya bisa dipilih jika KOSONG DI SEMUA HARI yang dipilih
+            const isAvailableOnAllSelectedDays = selectedDays.every(day => {
+                const identifier = `${day}-${sesi}`;
+                return !fullSessionsList.includes(identifier);
+            });
             
-            if (!fullSessionsList.includes(identifier)) {
+            if (isAvailableOnAllSelectedDays) {
                 const option = document.createElement('option');
                 option.value = sesi;
                 option.innerText = sesi;
@@ -99,7 +108,7 @@ class FormUI {
         });
 
         if (availableSlotsCount === 0) {
-            this.sessionSelect.innerHTML = '<option value="">❌ Maaf, seluruh sesi di hari ini telah penuh</option>';
+            this.sessionSelect.innerHTML = '<option value="">❌ Maaf, seluruh sesi di hari pilihan Anda telah penuh</option>';
             this.sessionSelect.disabled = true;
         } else {
             this.sessionSelect.disabled = false;
@@ -108,7 +117,29 @@ class FormUI {
 
     getFormData() {
         const formDataObj = new FormData(this.form);
-        return Object.fromEntries(formDataObj.entries());
+        const data = {};
+        
+        for (let [key, value] of formDataObj.entries()) {
+            if (data[key]) {
+                // Jika key sudah ada (berarti data multiple seperti checkbox), ubah jadi array
+                if (!Array.isArray(data[key])) {
+                    data[key] = [data[key]];
+                }
+                data[key].push(value);
+            } else {
+                data[key] = value;
+            }
+        }
+
+        // FORMATTING UNTUK GOOGLE SHEETS: Gabungkan array pilihanHari[] menjadi string
+        if (data['pilihanHari[]']) {
+            data['pilihanHari'] = Array.isArray(data['pilihanHari[]']) 
+                ? data['pilihanHari[]'].join(', ') 
+                : data['pilihanHari[]'];
+            delete data['pilihanHari[]']; // Hapus key lama agar rapi
+        }
+
+        return data;
     }
 
     resetForm() {
@@ -123,15 +154,18 @@ class FormController {
     constructor(apiInstance, uiInstance) {
         this.api = apiInstance;
         this.ui = uiInstance;
-        this.fullSessionsCache = []; // Menyimpan data kuota agar tidak boros hit API
+        this.fullSessionsCache = []; 
     }
 
     init() {
-        // Daftarkan event listener
-        this.ui.daySelect.addEventListener('change', () => this.handleDayChange());
+        // Daftarkan event listener untuk SETIAP checkbox hari
+        const dayCheckboxes = document.querySelectorAll('input[name="pilihanHari[]"]');
+        dayCheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => this.handleDayChange());
+        });
+
         this.ui.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
         
-        // Prapemuatan data kuota begitu halaman pertama kali dibuka (Asynchronous Prefetching)
         this.preloadQuotaData();
     }
 
@@ -142,8 +176,11 @@ class FormController {
     }
 
     handleDayChange() {
-        const selectedDay = this.ui.daySelect.value;
-        this.ui.renderSessionOptions(selectedDay, this.fullSessionsCache);
+        // Ambil semua value dari checkbox yang sedang dicentang
+        const checkedBoxes = document.querySelectorAll('input[name="pilihanHari[]"]:checked');
+        const selectedDays = Array.from(checkedBoxes).map(cb => cb.value); // Contoh output: ["Senin", "Rabu"]
+        
+        this.ui.renderSessionOptions(selectedDays, this.fullSessionsCache);
     }
 
     async handleFormSubmit(event) {
@@ -158,7 +195,6 @@ class FormController {
         if (isSuccess) {
             alert("Selamat! Data Calon Siswa MindLab berhasil terkirim. Tim kami akan segera menghubungi Anda via WhatsApp.");
             this.ui.resetForm();
-            // Refresh data kuota terbaru setelah ada pendaftaran masuk
             this.preloadQuotaData();
         } else {
             alert("Terjadi kendala teknis saat mengirim data. Mohon coba beberapa saat lagi atau langsung hubungi Kak Andin.");
@@ -167,7 +203,6 @@ class FormController {
 }
 
 // --- INSTANSIASI DAN EKSEKUSI SISTEM ---
-// Ganti URL di bawah dengan tautan Web App dari Google Apps Script Anda nanti
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQCfI6qFuT9_XI7ir5jS5eR8UqsM6vufZu9uDzZA8qioYmsuVwc8SGneqfw-Y94615VQ/exec";
 
 const apiInstance = new MindLabAPI(GOOGLE_SCRIPT_URL);
