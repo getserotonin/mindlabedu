@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MindLab</title>
+    
+    <!-- Idealnya ini terhubung ke ../css/style.css, tapi saya tambahkan CSS internal khusus struktur admin agar langsung rapi -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- BAGIAN 1: GERBANG LOGIN ADMIN              -->
+    <!-- ========================================== -->
+    <div class="login-container" id="loginSection">
+        <h2>MindLab Admin</h2>
+        <p style="color: #7f8c8d; margin-bottom: 20px;">Silakan masukkan PIN akses Anda</p>
+        
+        <div class="form-group">
+            <input type="password" id="adminPin" placeholder="Masukkan PIN..." autocomplete="off">
+        </div>
+        <button id="btnLogin">Masuk Dashboard</button>
+        <p id="loginError" style="color: #e74c3c; display: none; margin-top: 15px; font-size: 0.9rem;">❌ PIN yang dimasukkan salah!</p>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- BAGIAN 2: DASHBOARD UTAMA                  -->
+    <!-- ========================================== -->
+    <div class="dashboard-container" id="dashboardSection">
+        
+        <!-- Sidebar Kiri -->
+        <div class="sidebar">
+            <h2>🎓 Admin Panel</h2>
+            <ul class="nav-menu">
+                <li><a id="nav-siswa" class="active">👥 Data Siswa</a></li>
+                <li><a id="nav-absensi">📋 Absensi</a></li>
+                <li><a id="nav-invoice">💳 Invoice</a></li>
+                <li><a id="nav-hasil">📈 Hasil Belajar</a></li>
+                <li style="margin-top: 40px;"><a id="nav-logout" style="background: #c0392b;">🚪 Keluar (Logout)</a></li>
+            </ul>
+        </div>
+
+        <!-- Area Konten Kanan -->
+        <div class="main-content">
+            
+            <!-- Tombol Toggle Sidebar Baru -->
+            <button id="btnToggleSidebar" class="btn-toggle-sidebar" title="Sembunyikan/Tampilkan Menu">
+                ☰ 
+            </button>
+            
+            <!-- Halaman 1: Data Siswa & Kurasi -->
+            <div id="sec-siswa" class="content-section active">
+                <h2>Data Siswa Aktif</h2>
+                <p>Kurasi pendaftar baru dan lihat daftar siswa yang sudah resmi bergabung.</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <div id="tableSiswaContainer" class="table-container" style="margin-top: 20px; overflow-x: auto;">
+                    <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead style="background-color: #f1f3f4;">
+                            <tr>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">ID Siswa</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Nama Lengkap</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Panggilan</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">TTL</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">JK</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Asal Sekolah</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Jenjang</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Ortu</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">No WA</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-siswa">
+                            <!-- Data dari JavaScript akan masuk ke sini otomatis -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Halaman 2: Absensi -->
+            <div id="sec-absensi" class="content-section">
+                <h2>Input Absensi Harian</h2>
+                <p>Pilih tanggal dan sesi untuk mencatat kehadiran siswa.</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <div id="formAbsensiContainer" style="margin-top: 20px;">
+                    <!-- Nanti fitur centang form Input Absensi kita buat di sini -->
+                </div>
+
+                <!-- Tabel Rekap Riwayat Presensi -->
+                <h3 style="margin-top: 40px; color: #2c3e50;">Riwayat Presensi & Log Mengajar</h3>
+                <div class="table-container" style="margin-top: 15px; overflow-x: auto;">
+                    <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead style="background-color: #f1f3f4;">
+                            <tr>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">ID Presensi</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Waktu Input</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tanggal Sesi</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">ID Siswa</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">ID Tutor</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Kode Matpel</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Kehadiran</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Worksheet</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-presensi">
+                            <!-- Data riwayat dari JavaScript akan masuk ke sini otomatis -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="formAbsensiContainer" style="color: #7f8c8d; margin-top: 20px;">
+                    [Daftar siswa sesuai kelas akan muncul di sini]
+                </div>
+            </div>
+
+            <!-- Halaman 3: Invoice -->
+            <div id="sec-invoice" class="content-section">
+                <h2>Manajemen Invoice Bulanan</h2>
+                <p>Buat tagihan baru atau perbarui status pembayaran siswa (Lunas/Belum).</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <div id="tableInvoiceContainer" style="color: #7f8c8d;">
+                    [Tabel Invoice dari Google Sheets akan muncul di sini]
+                </div>
+            </div>
+
+            <!-- Halaman 4: Hasil Belajar -->
+            <div id="sec-hasil" class="content-section">
+                <h2>Evaluasi & Hasil Belajar</h2>
+                <p>Input rekap nilai, portofolio, dan catatan perkembangan belajar siswa.</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <div id="formHasilContainer" style="color: #7f8c8d;">
+                    [Form penilaian per siswa akan muncul di sini]
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script Utama Portal Admin -->
+    <script src="js/admin-handler.js"></script>
+</body>
+</html>

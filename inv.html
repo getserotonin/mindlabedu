@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - MindLab</title>
+    <!-- Font Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/invoice.css">
+</head>
+<body>
+
+    <div class="invoice-container">
+        
+        <!-- Area Pencarian & Tombol Cetak (Sembunyi saat Print) -->
+        <div class="no-print control-panel">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ketik No. Invoice" />
+                <button onclick="searchInvoice()">Cari</button>
+            </div>
+            <button onclick="window.print()" class="btn-print">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Cetak PDF
+            </button>
+        </div>
+
+        <!-- Header Invoice Minimalis -->
+        <header class="invoice-header">
+            <div class="brand">
+                <h1>Mind<span>Lab</span></h1>
+                <p>PRIVATE LEARNING STUDIO</p>
+            </div>
+            <div class="invoice-title">
+                <h2>INVOICE</h2>
+            </div>
+        </header>
+
+        <!-- Informasi Tagihan & Meta Data (Grid 2 Kolom) -->
+        <section class="invoice-details">
+            <div class="billed-to">
+                <p class="label">DITAGIHKAN KEPADA:</p>
+                <h3 id="student-name">-</h3>
+               <!-- <p class="sub-text">Kelas: <span id="class-type">-</span></p>-->
+            </div>
+            
+            <div class="meta-data">
+                <div class="meta-row">
+                    <span class="label">No. Invoice</span>
+                    <strong id="inv-number">-</strong>
+                </div>
+                <div class="meta-row">
+                    <span class="label">Tanggal</span>
+                    <strong id="inv-date">-</strong>
+                </div>
+                <div class="meta-row">
+                    <span class="label">Periode</span>
+                    <strong id="inv-period">-</strong>
+                </div>
+                <div class="meta-row status-row">
+                    <span class="label">Status</span>
+                    <strong id="inv-status" class="status-badge">-</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabel Rincian Clean Design -->
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th class="text-left">DESKRIPSI LAYANAN</th>
+                    <th class="text-right">BIAYA / SESI</th>
+                    <th class="text-center">SESI</th>
+                    <th class="text-right">JUMLAH</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="item-title">Bimbingan Belajar <span id="class-type">-</span></div>
+                        <div class="item-desc">Program pembelajaran periode <span id="table-period">-</span></div>
+                    </td>
+                    <td class="text-right" id="fee-per-session">Rp 0</td>
+                    <td class="text-center" id="total-sessions">0</td>
+                    <td class="text-right" id="subtotal-amount">Rp 0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Total Area -->
+           <!-- Area Bawah: Metode Pembayaran & Total -->
+        <div class="invoice-bottom">
+            
+            <!-- Metode Pembayaran (Kiri) - Diberi ID untuk kontrol JS -->
+            <div class="payment-methods" id="payment-methods-container">
+                <h4>Metode Pembayaran</h4>
+                <p>Pembayaran dapat dilakukan melalui transfer ke salah satu rekening berikut (a.n <strong>Andini Nurminda</strong>):</p>
+                <ul class="bank-list">
+                    <li class="bank-bsi">
+                        <!-- Ganti src dengan nama file logomu -->
+                        <img src="assets/logo-bank/logo-bsi.svg" alt="BSI" class="bank-logo">
+                        <div class="bank-info">
+                            <strong>Bank Syariah Indonesia (BSI)</strong>
+                            <span>7166001368</span>
+                        </div>
+                    </li>
+                    <li class="bank-muamalat">
+                        <img src="assets/logo-bank/logo-muamalat.svg" alt="Muamalat" class="bank-logo">
+                        <div class="bank-info">
+                            <strong>Bank Muamalat</strong>
+                            <span>1060019727</span>
+                        </div>
+                    </li>
+                    <li class="bank-seabank">
+                        <img src="assets/logo-bank/logo-seabank.svg" alt="Seabank" class="bank-logo">
+                        <div class="bank-info">
+                            <strong>Seabank</strong>
+                            <span>901423137932</span>
+                        </div>
+                    </li>
+                    <li class="bank-jago">
+                        <img src="assets/logo-bank/logo-jago.svg" alt="Jago" class="bank-logo">
+                        <div class="bank-info">
+                            <strong>Bank Jago</strong>
+                            <span>108965182863</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Total Area (Kanan) -->
+            <div class="invoice-summary">
+                <div class="summary-row grand-total-row">
+                    <span>TOTAL TAGIHAN</span>
+                    <strong id="grand-total">Rp 0</strong>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+        <!-- Footer -->
+        <footer class="invoice-footer">
+            <p>Terima kasih atas kepercayaan Anda kepada MindLab.</p>
+            <p class="motto">Learn. Explore. Grow.</p>
+        </footer>
+    </div>
+
+    <script src="js/invoice.js"></script>
+</body>
+</html>
