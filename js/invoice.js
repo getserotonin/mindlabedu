@@ -28,10 +28,20 @@ async function fetchInvoiceData() {
             document.getElementById('class-type').innerText = data.kelas;
             document.getElementById('total-sessions').innerText = data.jumlahPertemuan;
             
-            // Data baru: Status & Biaya Per Sesi
-            document.getElementById('inv-status').innerText = data.statusBayar;
-            document.getElementById('fee-per-session').innerText = data.biayaPerSesi;
+           // Data baru: Status & Biaya Per Sesi
+            const statusElement = document.getElementById('inv-status');
+            statusElement.innerText = data.statusBayar;
             
+            // 👇 TAMBAHKAN KODE INI UNTUK WARNA DINAMIS BADGE STATUS 👇
+            statusElement.className = 'status-badge'; // Reset kelas
+            if (data.statusBayar.toLowerCase().includes('lunas')) {
+                statusElement.classList.add('lunas');     // Hijau
+            } else {
+                statusElement.classList.add('menunggu');  // Merah
+            }
+            // 👆 BATAS PENAMBAHAN 👆
+
+            document.getElementById('fee-per-session').innerText = data.biayaPerSesi;            
             // Karena kita menggunakan getDisplayValues(), totalBiaya sudah berwujud "Rp 105.000"
             document.getElementById('subtotal-amount').innerText = data.totalBiaya;
             document.getElementById('grand-total').innerText = data.totalBiaya;
