@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Journey - MindLab</title>
-    <!-- Font Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/invoice.css">
 </head>
@@ -12,19 +11,37 @@
 
     <div class="invoice-container">
         
-        <!-- Panel Pencarian Nama Siswa -->
-        <div class="control-panel">
-            <div class="search-box">
-                <input type="text" id="searchJourneyInput" placeholder="Ketik Nama Siswa (Contoh: Nadhira)" />
-                <button onclick="searchJourney()">Cari Journey</button>
-            </div>
-        </div>
+        <!-- Panel Pencarian & Filter -->
+        <!-- Bagian Input Pencarian di HTML -->
+<div class="control-panel" style="flex-direction: column; gap: 12px; align-items: stretch;">
+    <div class="search-box" style="max-width: 100%;">
+        <input type="text" id="searchJourneyInput" placeholder="Ketik ID Siswa " style="width: 100%;" />
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <select id="filterPeriode" style="flex: 1; padding: 12px 16px; border: 2px solid #E2E8F0; border-radius: 100px; outline: none; font-weight: 500; background: white; color: var(--brand-dark);">
+            <option value="">Semua Periode</option>
+            <option value="Juli 2026">Juli 2026</option>
+            <option value="Ags 2026">Ags 2026</option>
+        </select>
+        
+        <select id="filterMatpel" style="flex: 1; padding: 12px 16px; border: 2px solid #E2E8F0; border-radius: 100px; outline: none; font-weight: 500; background: white; color: var(--brand-dark);">
+            <option value="">Semua Mata Pelajaran</option>
+            <option value="Matematika">Matematika</option>
+            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+            <option value="Bahasa Inggris">Bahasa Inggris</option>
+            <option value="IPAS">IPAS</option>
+        </select>
+
+        <button onclick="searchJourney()" style="padding: 12px 28px;">Cari Journey</button>
+    </div>
+</div>
 
         <!-- Header Learning Journey -->
         <header class="invoice-header">
             <div class="brand">
                 <h1>Mind<span>Lab</span></h1>
-                <p>PRIVATE LEARNING STUDIO</p>
+                <p>LEARNING JOURNEY STUDIO</p>
             </div>
             <div class="invoice-title">
                 <h2>JOURNEY</h2>
@@ -42,41 +59,49 @@
 
         <!-- Container Daftar Riwayat / Timeline Sesi -->
         <div id="journey-timeline-container">
-            <p class="text-muted" style="text-align: center; padding: 30px;">Silakan ketik nama siswa di atas untuk melihat riwayat perjalanan belajarnya.</p>
+            <p class="text-muted" style="text-align: center; padding: 30px;">Silakan ketik nama siswa dan sesuaikan filter di atas.</p>
         </div>
 
-        <!-- Footer -->
         <footer class="invoice-footer" style="margin-top: 40px;">
             <p>Terus semangat belajar bersama MindLab!</p>
             <p class="motto">Learn. Explore. Grow.</p>
         </footer>
     </div>
 
-    <script>
-        // Ganti URL di bawah ini dengan URL Web App Google Apps Script kamu yang aktif
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxcN813NCscqvNNd55pkqM7VInj4pjmGQiFN8-4Ql0F3HLXPzTqTIMoT3c2kKfVzPBT_w/exec';
+   <script>
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwCV4DusbQd3GeQ8ZUvrx2cvdhfcj0uobi0dJoETvv5YVnO-CaENVm4uR8GIUMsHKualg/exec';
 
         function searchJourney() {
-            const namaSiswa = document.getElementById('searchJourneyInput').value.trim();
+            // Perbaikan 1: Mengambil nilai input dengan benar ke variabel inputIdSiswa
+            const inputIdSiswa = document.getElementById('searchJourneyInput').value.trim();
+            const periode = document.getElementById('filterPeriode').value;
+            const matpel = document.getElementById('filterMatpel').value;
+            
             const container = document.getElementById('journey-timeline-container');
             const infoSection = document.getElementById('student-info-section');
             const nameHeader = document.getElementById('journey-student-name');
             const totalSessionsEl = document.getElementById('total-sessions');
 
-            if (!namaSiswa) {
-                alert('Silakan masukkan nama siswa terlebih dahulu!');
+            // Perbaikan 2: Peringatan disesuaikan menjadi ID Siswa
+            if (!inputIdSiswa) {
+                alert('Silakan masukkan ID siswa terlebih dahulu!');
                 return;
             }
 
             container.innerHTML = '<p style="text-align: center; padding: 30px; color: var(--text-muted);">Memuat data perjalanan belajar...</p>';
             infoSection.style.display = 'none';
 
-            fetch(`${WEB_APP_URL}?action=getJourney&nama=${encodeURIComponent(namaSiswa)}`)
+            // Menggunakan variabel inputIdSiswa yang sudah benar
+            let targetUrl = `${WEB_APP_URL}?action=getJourney&id=${encodeURIComponent(inputIdSiswa)}`;
+            if (periode) targetUrl += `&periode=${encodeURIComponent(periode)}`;
+            if (matpel) targetUrl += `&matpel=${encodeURIComponent(matpel)}`;
+
+            fetch(targetUrl)
                 .then(response => response.json())
                 .then(result => {
                     if (result.status !== 'success' || !result.data || result.data.length === 0) {
-                        container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C; font-weight: 600;">Data pembelajaran tidak ditemukan untuk siswa tersebut.</p>';
-                        return;ko
+                        container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C; font-weight: 600;">Data pembelajaran tidak ditemukan dengan ID atau filter tersebut.</p>';
+                        return;
                     }
 
                     const dataSesi = result.data;
@@ -84,28 +109,37 @@
                     totalSessionsEl.textContent = dataSesi.length;
                     infoSection.style.display = 'grid';
 
-                    let html = '<div style="display: flex; flex-direction: column; gap: 16px;">';
+                    let html = '<div style="display: flex; flex-direction: column; gap: 20px;">';
                     
                     dataSesi.forEach((item, index) => {
                         html += `
-                            <div style="background: var(--brand-light); border: 1px solid #E2E8F0; border-radius: var(--radius-md); padding: 24px; position: relative;">
+                            <div style="background: var(--brand-light); border: 1px solid #E2E8F0; border-radius: var(--radius-md); padding: 24px;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                                    <strong style="color: var(--brand-primary); font-size: 1.05rem;">Sesi #${index + 1} — ${item.matpel} (${item.jenjang})</strong>
-                                    <span class="status-badge lunas">${item.tanggalSesi}</span>
+                                    <strong style="color: var(--brand-primary); font-size: 1.1rem;">Sesi #${index + 1} — ${item.matpel || 'Umum'} (${item.jenjang || '-'})</strong>
+                                    <span class="status-badge lunas">${item.tanggalSesi} (${item.periode})</span>
                                 </div>
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 14px; font-size: 0.9rem; color: var(--text-muted);">
+
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-bottom: 14px; font-size: 0.9rem; color: var(--text-muted);">
                                     <div><strong>Waktu:</strong> ${item.sesiWaktu}</div>
                                     <div><strong>Tutor:</strong> ${item.tutor}</div>
                                     <div><strong>Kelas:</strong> ${item.kelas}</div>
                                 </div>
+
                                 <div style="margin-bottom: 12px;">
-                                    <span class="label" style="margin-bottom: 4px;">Materi Dipelajari:</span>
-                                    <p style="font-weight: 600; color: var(--brand-dark); font-size: 0.95rem;">${item.materi || '-'}</p>
+                                    <span class="label" style="margin-bottom: 2px;">Topik: <strong>${item.topik || '-'}</strong></span>
+                                    <p style="font-size: 0.95rem; color: var(--brand-dark);"><strong>Materi:</strong> ${item.materi || '-'}</p>
                                 </div>
-                                <div style="background: var(--white); padding: 14px; border-radius: var(--radius-sm); border-left: 4px solid var(--brand-primary); border: 1px solid #E2E8F0;">
-                                    <span class="label" style="margin-bottom: 4px; color: var(--brand-primary);">Catatan Kehadiran / Mentor:</span>
-                                    <p style="font-size: 0.9rem; color: var(--text-main);">${item.catatan || 'Tidak ada catatan khusus.'}</p>
-                                </div>
+
+                                ${item.tercapai ? `
+                                <div style="background: #DCFCE7; color: #15803D; padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 10px; font-size: 0.9rem; border: 1px solid #BBF7D0;">
+                                    <strong>✅ Yang Dicapai:</strong> ${item.tercapai}
+                                </div>` : ''}
+
+                                ${item.pengayaan ? `
+                                <div style="background: var(--white); padding: 12px 16px; border-radius: var(--radius-sm); border-left: 4px solid var(--brand-primary); border: 1px solid #E2E8F0; font-size: 0.9rem;">
+                                    <strong style="color: var(--brand-primary);">💡 Catatan / Pengayaan:</strong>
+                                    <p style="color: var(--text-main); margin-top: 4px;">${item.pengayaan}</p>
+                                </div>` : ''}
                             </div>
                         `;
                     });
@@ -118,6 +152,12 @@
                     container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C;">Terjadi kesalahan saat mengambil data.</p>';
                 });
         }
+
+        document.getElementById('searchJourneyInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchJourney();
+            }
+        });
     </script>
 </body>
 </html>
