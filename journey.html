@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Journey - MindLab</title>
+    <!-- Font Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/invoice.css">
+</head>
+<body>
+
+    <div class="invoice-container">
+        
+        <!-- Panel Pencarian Nama Siswa -->
+        <div class="control-panel">
+            <div class="search-box">
+                <input type="text" id="searchJourneyInput" placeholder="Ketik Nama Siswa (Contoh: Nadhira)" />
+                <button onclick="searchJourney()">Cari Journey</button>
+            </div>
+        </div>
+
+        <!-- Header Learning Journey -->
+        <header class="invoice-header">
+            <div class="brand">
+                <h1>Mind<span>Lab</span></h1>
+                <p>PRIVATE LEARNING STUDIO</p>
+            </div>
+            <div class="invoice-title">
+                <h2>JOURNEY</h2>
+            </div>
+        </header>
+
+        <!-- Informasi Siswa -->
+        <section class="invoice-details" id="student-info-section" style="display: none;">
+            <div class="billed-to">
+                <p class="label">LAPORAN BELAJAR UNTUK:</p>
+                <h3 id="journey-student-name">-</h3>
+                <p class="sub-text">Total Pertemuan Tercatat: <span id="total-sessions">0</span> Sesi</p>
+            </div>
+        </section>
+
+        <!-- Container Daftar Riwayat / Timeline Sesi -->
+        <div id="journey-timeline-container">
+            <p class="text-muted" style="text-align: center; padding: 30px;">Silakan ketik nama siswa di atas untuk melihat riwayat perjalanan belajarnya.</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="invoice-footer" style="margin-top: 40px;">
+            <p>Terus semangat belajar bersama MindLab!</p>
+            <p class="motto">Learn. Explore. Grow.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Ganti URL di bawah ini dengan URL Web App Google Apps Script kamu yang aktif
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxcN813NCscqvNNd55pkqM7VInj4pjmGQiFN8-4Ql0F3HLXPzTqTIMoT3c2kKfVzPBT_w/exec';
+
+        function searchJourney() {
+            const namaSiswa = document.getElementById('searchJourneyInput').value.trim();
+            const container = document.getElementById('journey-timeline-container');
+            const infoSection = document.getElementById('student-info-section');
+            const nameHeader = document.getElementById('journey-student-name');
+            const totalSessionsEl = document.getElementById('total-sessions');
+
+            if (!namaSiswa) {
+                alert('Silakan masukkan nama siswa terlebih dahulu!');
+                return;
+            }
+
+            container.innerHTML = '<p style="text-align: center; padding: 30px; color: var(--text-muted);">Memuat data perjalanan belajar...</p>';
+            infoSection.style.display = 'none';
+
+            fetch(`${WEB_APP_URL}?action=getJourney&nama=${encodeURIComponent(namaSiswa)}`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status !== 'success' || !result.data || result.data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C; font-weight: 600;">Data pembelajaran tidak ditemukan untuk siswa tersebut.</p>';
+                        return;ko
+                    }
+
+                    const dataSesi = result.data;
+                    nameHeader.textContent = dataSesi[0].namaSiswa;
+                    totalSessionsEl.textContent = dataSesi.length;
+                    infoSection.style.display = 'grid';
+
+                    let html = '<div style="display: flex; flex-direction: column; gap: 16px;">';
+                    
+                    dataSesi.forEach((item, index) => {
+                        html += `
+                            <div style="background: var(--brand-light); border: 1px solid #E2E8F0; border-radius: var(--radius-md); padding: 24px; position: relative;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                                    <strong style="color: var(--brand-primary); font-size: 1.05rem;">Sesi #${index + 1} — ${item.matpel} (${item.jenjang})</strong>
+                                    <span class="status-badge lunas">${item.tanggalSesi}</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 14px; font-size: 0.9rem; color: var(--text-muted);">
+                                    <div><strong>Waktu:</strong> ${item.sesiWaktu}</div>
+                                    <div><strong>Tutor:</strong> ${item.tutor}</div>
+                                    <div><strong>Kelas:</strong> ${item.kelas}</div>
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <span class="label" style="margin-bottom: 4px;">Materi Dipelajari:</span>
+                                    <p style="font-weight: 600; color: var(--brand-dark); font-size: 0.95rem;">${item.materi || '-'}</p>
+                                </div>
+                                <div style="background: var(--white); padding: 14px; border-radius: var(--radius-sm); border-left: 4px solid var(--brand-primary); border: 1px solid #E2E8F0;">
+                                    <span class="label" style="margin-bottom: 4px; color: var(--brand-primary);">Catatan Kehadiran / Mentor:</span>
+                                    <p style="font-size: 0.9rem; color: var(--text-main);">${item.catatan || 'Tidak ada catatan khusus.'}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += '</div>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C;">Terjadi kesalahan saat mengambil data.</p>';
+                });
+        }
+    </script>
+</body>
+</html>

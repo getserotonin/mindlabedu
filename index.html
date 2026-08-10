@@ -21,6 +21,12 @@
     <nav>
         <div class="container nav-container">
             <a href="index.html" class="logo">Mind<span>Lab</span></a>
+            
+            <!-- Tombol Burger untuk Mobile -->
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="modul-ajar.html">Modul & Worksheet</a></li>
@@ -121,85 +127,7 @@
     </div>
 </section>
 
-<!-- SCRIPT UNTUK MENARIK DATA DARI APP SCRIPT -->
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-        const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxO_DFsqF70TyHBDQYxNF8iCNlNzEh5-KGfLlp_5ulb6izx0ReFGi2wzzer-9yrmzEApA/exec"; 
-        const tableBody = document.getElementById("schedule-data-rows");
-
-        fetch(BACKEND_URL)
-            .then(response => response.json())
-            .then(data => {
-                
-                // 1. CEK JIKA DATA EROR ATAU KOSONG
-                if (!data || data.length === 0 || data.error) {
-                    let detailError = "Penyebab: ";
-                    if (!data) {
-                        detailError += "Data dari Google bernilai null/kosong.";
-                    } else if (data.length === 0) {
-                        detailError += "Tab 'SlotPenuh' terdeteksi kosong (Baris 2 ke bawah belum ada data).";
-                    } else if (data.error) {
-                        detailError += data.error; 
-                    }
-
-                    // Tampilkan pesan eror ke layar website
-                    tableBody.innerHTML = `<tr><td colspan="3" class="loading-text" style="color: #EF4444;">❌ Gagal memuat jadwal. Hubungi Admin.</td></tr>`;
-                    
-                    // Catat pesan detail di console untuk keperluan perbaikan
-                    console.log(detailError); 
-                    
-                    // Hentikan eksekusi kode sampai di sini
-                    return; 
-                } // <--- INI ADALAH KURUNG TUTUP YANG HILANG DI KODEMU SEBELUMNYA
-
-                // 2. JIKA DATA BERHASIL DITARIK (SUKSES)
-                // Kosongkan text loading "Sedang menghubungkan..."
-                tableBody.innerHTML = "";
-
-                // Looping data dari Google Sheets untuk dimasukkan ke baris tabel HTML
-                // Looping menggunakan data yang sudah dibatasi
-                data.forEach(row => {
-                    const tr = document.createElement("tr");
-                    
-                    const statusText = row[1] || "Tersedia"; 
-                    const isFull = statusText.toLowerCase() === "penuh";
-                    
-                    // Menentukan warna status: Merah jika penuh, Hijau jika tersedia
-                    const statusColor = isFull ? "#EF4444" : "#10B981"; 
-                    const statusIcon = isFull ? "fa-ban" : "fa-check-circle";
-                    
-                    tr.innerHTML = `
-                        <!-- Ikon Kalender: Warna Biru Cerah -->
-                        <td>
-                            <i class="fas fa-calendar-day me-2" style="color: #3B82F6; font-size: 1.1em;"></i> 
-                            ${row[2]}
-                        </td>
-                        
-                        <!-- Ikon Jam: Warna Oranye Hangat -->
-                        <td>
-                            <i class="fas fa-clock me-2" style="color: #F59E0B; font-size: 1.1em;"></i> 
-                            ${row[3]}
-                        </td>
-                        
-                        <!-- Ikon Status: Merah/Hijau Menyesuaikan Kondisi -->
-                        <td style="text-align: center;">
-                            <span class="status-badge ${isFull ? 'status-full' : 'status-available'}" style="color: ${statusColor}; font-weight: 600;">
-                                <i class="fas ${statusIcon} me-1"></i> ${statusText}
-                            </span>
-                        </td>
-                    `;
-                    tableBody.appendChild(tr);
-                });
-            })
-            .catch(error => {
-                console.error("Error fetching sheet data:", error);
-                tableBody.innerHTML = `<tr><td colspan="3" class="loading-text" style="color: #EF4444;">❌ Koneksi terputus. Coba refresh halaman.</td></tr>`;
-            });
-    });
-</script>
 
     <!-- WHY US (BENEFITS) -->
     <section class="why-us">
@@ -302,6 +230,10 @@
             <p>&copy; 2026. Made with ❤️ by Mindlab</p>
         </div>
     </footer>
+
+
+    <!-- Panggil file JavaScript eksternal yang sudah dibuat -->
+    <script src="js/main.js"></script>
 
 </body>
 </html>
