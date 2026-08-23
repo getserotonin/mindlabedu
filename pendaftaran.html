@@ -4,58 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendaftaran Siswa Baru - MindLab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-     <!-- Memanggil CSS dari folder css -->
-    <link rel="stylesheet" href="css/form.css">
-   
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS Output -->
+    <link rel="stylesheet" href="css/output.css">
 </head>
-<body>
+<body class="font-['Plus_Jakarta_Sans',sans-serif] bg-gray-50 text-gray-800 antialiased selection:bg-indigo-600 selection:text-white">
 
-    <nav>
-        <div class="container nav-container">
-            <a href="index.html" class="logo">Mind<span>Lab</span></a>
-            <a href="index.html" class="btn-back">← Kembali ke Home</a>
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <a href="index.html" class="text-2xl font-extrabold text-gray-900 tracking-tight">Mind<span class="text-indigo-600">Lab</span></a>
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition">
+                <span>←</span> Kembali ke Home
+            </a>
         </div>
     </nav>
 
-    <main class="container">
-        <div class="form-header">
-            <h1>Formulir Pendaftaran Siswa</h1>
-            <p>Silakan lengkapi data calon siswa MindLab di bawah ini.</p>
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
+        
+        <div class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">Formulir Pendaftaran Siswa</h1>
+            <p class="text-gray-600 text-sm sm:text-base font-medium">Silakan lengkapi data calon siswa MindLab di bawah ini.</p>
         </div>
 
-        <form id="formMindLab">
+        <form id="formMindLab" class="space-y-8">
+            
             <!-- A. DATA PRIBADI SISWA -->
-            <section class="form-section">
-                <div class="section-title">A. Data Pribadi Siswa</div>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label for="namaLengkap">Nama Lengkap Siswa *</label>
-                        <input type="text" id="namaLengkap" name="namaLengkap" required placeholder="Contoh: Muhammad Budi">
+            <section class="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 sm:p-8">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-extrabold">A</span> 
+                    Data Pribadi Siswa
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label for="namaLengkap" class="text-sm font-semibold text-gray-700">Nama Lengkap Siswa *</label>
+                        <input type="text" id="namaLengkap" name="namaLengkap" required placeholder="Contoh: Muhammad Budi" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm">
                     </div>
-                    <div class="form-group">
-                        <label for="namaPanggilan">Nama Panggilan *</label>
-                        <input type="text" id="namaPanggilan" name="namaPanggilan" required placeholder="Contoh: Budi">
+
+                    <div class="flex flex-col gap-2">
+                        <label for="namaPanggilan" class="text-sm font-semibold text-gray-700">Nama Panggilan *</label>
+                        <input type="text" id="namaPanggilan" name="namaPanggilan" required placeholder="Contoh: Budi" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm">
                     </div>
-                    <div class="form-group">
-                        <label for="ttl">Tempat, Tanggal Lahir *</label>
-                        <input type="text" id="ttl" name="ttl" required placeholder="Contoh: Jakarta, 12 Juli 2018">
+
+                    <div class="flex flex-col gap-2">
+                        <label for="ttl" class="text-sm font-semibold text-gray-700">Tempat, Tanggal Lahir *</label>
+                        <input type="text" id="ttl" name="ttl" required placeholder="Contoh: Jakarta, 12 Juli 2018" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm">
                     </div>
-                    <div class="form-group">
-                        <label>Jenis Kelamin *</label>
-                        <div class="options-group">
-                            <label class="option-label"><input type="radio" name="jenisKelamin" value="Laki-laki" required> Laki-laki</label>
-                            <label class="option-label"><input type="radio" name="jenisKelamin" value="Perempuan"> Perempuan</label>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700">Jenis Kelamin *</label>
+                        <div class="flex items-center gap-6 h-12">
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="jenisKelamin" value="Laki-laki" required class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Laki-laki
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="jenisKelamin" value="Perempuan" class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Perempuan
+                            </label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="asalSekolah">Asal Sekolah *</label>
-                        <input type="text" id="asalSekolah" name="asalSekolah" required placeholder="Contoh: SD Sekolah Alam">
+
+                    <div class="flex flex-col gap-2">
+                        <label for="asalSekolah" class="text-sm font-semibold text-gray-700">Asal Sekolah *</label>
+                        <input type="text" id="asalSekolah" name="asalSekolah" required placeholder="Contoh: SD Sekolah Alam" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm">
                     </div>
-                    <div class="form-group">
-                        <label for="kelasSaatIni">Kelas / Level Saat Ini *</label>
-                        <select id="kelasSaatIni" name="kelasSaatIni" required>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="kelasSaatIni" class="text-sm font-semibold text-gray-700">Kelas / Level Saat Ini *</label>
+                        <select id="kelasSaatIni" name="kelasSaatIni" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-700 text-sm shadow-sm">
                             <option value="">Pilih Level...</option>
                             <option value="TK A">TK A</option>
                             <option value="TK B">TK B</option>
@@ -70,101 +88,171 @@
                 </div>
             </section>
 
-            <!-- B. DATA ORANG TUA / WALI -->
-            <section class="form-section">
-                <div class="section-title">B. Data Orang Tua / Wali</div>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label for="namaOrtu">Nama Ayah / Ibu *</label>
-                        <input type="text" id="namaOrtu" name="namaOrtu" required placeholder="Contoh: Ayah Hermawan / Ibu Sari">
+           <!-- B. DATA ORANG TUA / WALI -->
+            <section class="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 sm:p-8">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-extrabold">B</span> 
+                    Data Orang Tua / Wali
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label for="namaOrtu" class="text-sm font-semibold text-gray-700">Nama Ayah / Ibu *</label>
+                        <input type="text" id="namaOrtu" name="namaOrtu" required placeholder="Contoh: Ayah Hermawan / Ibu Sari" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm">
                     </div>
-                    <div class="form-group">
-                        <label for="whatsapp">No. WhatsApp Aktif *</label>
-                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Contoh: 0878xxxxxxxx">
+
+                <div class="flex flex-col gap-2">
+                <label for="whatsapp" class="text-sm font-semibold text-gray-700">No. WhatsApp Aktif *</label>
+                <div class="flex rounded-xl border border-gray-200 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-indigo-600 focus-within:border-indigo-600 bg-white">
+                    <span class="inline-flex items-center px-4 bg-gray-100 text-gray-600 font-bold text-sm border-r border-gray-200">+62</span>
+                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="878xxxxxxxx" class="w-full px-4 py-3 border-none focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm">
                     </div>
                 </div>
             </section>
 
             <!-- C. RENCANA PEMBELAJARAN (SLOT JADWAL) -->
-            <section class="form-section">
-                <div class="section-title">C. Rencana Pembelajaran (Slot Jadwal)</div>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Pilihan Paket *</label>
-                        <div class="options-group">
-                            <label class="option-label"><input type="radio" name="paket" value="Privat (1 Siswa)" required> Privat (1 Siswa)</label>
-                            <label class="option-label"><input type="radio" name="paket" value="Small Group (2-3 Siswa)"> Small Group (2-3 Siswa)</label>
+            <section class="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 sm:p-8">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-extrabold">C</span> 
+                    Rencana Pembelajaran (Slot Jadwal)
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700">Pilihan Paket *</label>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4 h-12">
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="paket" value="Privat (1 Siswa)" required class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Privat (1 Siswa)
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="paket" value="Small Group (2-3 Siswa)" class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Small Group (2-3 Siswa)
+                            </label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="mapel">Mata Pelajaran yang Dipilih *</label>
-                        <select id="mapel" name="mapel" required>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="mapel" class="text-sm font-semibold text-gray-700">Mata Pelajaran yang Dipilih *</label>
+                        <select id="mapel" name="mapel" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-700 text-sm shadow-sm">
                             <option value="">Pilih Mata Pelajaran...</option>
                             <option value="Matematika & B Indonesia">Matematika & B Indonesia</option>
                             <option value="Bahasa Inggris">Bahasa Inggris</option>
                             <option value="IPAS & B Indonesia">IPAS & B Indonesia</option>
                             <option value="TKA">Persiapan TKA</option>
-                            
                         </select>
                     </div>
-                    
-                    <!-- FILTER DINAMIS -->
-                    <div class="form-group">
-                        <label>Pilihan Hari (Senin - Kamis) *</label>
-                        <div style="display: grid; grid-template-rows: auto auto; grid-auto-flow: column; gap: 10px 30px; margin-top: 8px;">
-                            <label class="option-label"><input type="checkbox" name="pilihanHari[]" value="Senin"> Senin</label>
-                            <label class="option-label"><input type="checkbox" name="pilihanHari[]" value="Selasa"> Selasa</label>
-                            <label class="option-label"><input type="checkbox" name="pilihanHari[]" value="Rabu"> Rabu</label>
-                            <label class="option-label"><input type="checkbox" name="pilihanHari[]" value="Kamis"> Kamis</label>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700">Pilihan Hari (Senin - Kamis) *</label>
+                        <div class="grid grid-cols-2 gap-3 mt-1">
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="checkbox" name="pilihanHari[]" value="Senin" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Senin
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="checkbox" name="pilihanHari[]" value="Selasa" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Selasa
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="checkbox" name="pilihanHari[]" value="Rabu" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Rabu
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="checkbox" name="pilihanHari[]" value="Kamis" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Kamis
+                            </label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="pilihanSesi">Pilihan Jam Sesi *</label>
-                        <select id="pilihanSesi" name="pilihanSesi" required disabled>
+                    <div class="flex flex-col gap-2">
+                        <label for="pilihanSesi" class="text-sm font-semibold text-gray-700">Pilihan Jam Sesi *</label>
+                        <select id="pilihanSesi" name="pilihanSesi" required disabled class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-gray-50 font-medium text-gray-500 text-sm shadow-sm disabled:cursor-not-allowed">
                             <option value="">Pilih Hari Terlebih Dahulu...</option>
                         </select>
-                        <div id="loadingSesi" class="loading-spinner">Memeriksa ketersediaan slot kuota...</div>
+                        <div id="loadingSesi" class="text-xs text-indigo-600 font-medium hidden">Memeriksa ketersediaan slot kuota...</div>
                     </div>
 
-                    <div class="form-group full-width">
-                        <label for="alamat">Alamat Rumah Lengkap (Mohon sertakan share lokasi WA) *</label>
-                        <textarea id="alamat" name="alamat" required placeholder="Tuliskan alamat lengkap beserta link share location WhatsApp jika ada..."></textarea>
+                    <div class="sm:col-span-2 flex flex-col gap-2">
+                        <label for="alamat" class="text-sm font-semibold text-gray-700">Alamat Rumah Lengkap (Mohon sertakan share lokasi WA) *</label>
+                        <textarea id="alamat" name="alamat" required rows="3" placeholder="Tuliskan alamat lengkap beserta link share location WhatsApp jika ada..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm"></textarea>
                     </div>
                 </div>
             </section>
 
             <!-- D. PROFIL AKADEMIK & KARAKTER ANAK -->
-            <section class="form-section">
-                <div class="section-title">D. Profil Akademik & Karakter Anak</div>
-                <div class="form-group">
-                    <label>Gaya Belajar Anak *</label>
-                    <div class="options-group">
-                        <label class="option-label"><input type="radio" name="gayaBelajar" value="Visual" required> Visual</label>
-                        <label class="option-label"><input type="radio" name="gayaBelajar" value="Audio"> Audio</label>
-                        <label class="option-label"><input type="radio" name="gayaBelajar" value="Kinestetik"> Kinestetik</label>
+            <section class="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 sm:p-8">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-extrabold">D</span> 
+                    Profil Akademik & Karakter Anak
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700">Gaya Belajar Anak *</label>
+                        <div class="flex flex-wrap items-center gap-6">
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="gayaBelajar" value="Visual" required class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Visual
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="gayaBelajar" value="Audio" class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Audio
+                            </label>
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="radio" name="gayaBelajar" value="Kinestetik" class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Kinestetik
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="kendalaBelajar">Kendala Utama Anak Dalam Belajar Saat Ini *</label>
-                    <textarea id="kendalaBelajar" name="kendalaBelajar" required placeholder="Contoh: Anak cepat bosan saat berhitung, kurang fokus membaca..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="hobiAnak">Hal yang Disukai / Hobi Anak (Untuk Pendekatan Guru) *</label>
-                    <textarea id="hobiAnak" name="hobiAnak" required placeholder="Contoh: Menyukai lego, menggambar pesawat, suka cerita dinosaurus..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="catatanKhusus">Catatan Khusus Orang Tua Untuk Guru Pengajar</label>
-                    <textarea id="catatanKhusus" name="catatanKhusus" placeholder="Tuliskan instruksi atau kondisi medis/preferensi khusus jika ada..."></textarea>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="kendalaBelajar" class="text-sm font-semibold text-gray-700">Kendala Utama Anak Dalam Belajar Saat Ini *</label>
+                        <textarea id="kendalaBelajar" name="kendalaBelajar" required rows="3" placeholder="Contoh: Anak cepat bosan saat berhitung, kurang fokus membaca..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm"></textarea>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="hobiAnak" class="text-sm font-semibold text-gray-700">Hal yang Disukai / Hobi Anak (Untuk Pendekatan Guru) *</label>
+                        <textarea id="hobiAnak" name="hobiAnak" required rows="3" placeholder="Contoh: Menyukai lego, menggambar pesawat, suka cerita dinosaurus..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm"></textarea>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="catatanKhusus" class="text-sm font-semibold text-gray-700">Catatan Khusus Orang Tua Untuk Guru Pengajar</label>
+                        <textarea id="catatanKhusus" name="catatanKhusus" rows="3" placeholder="Tuliskan instruksi atau kondisi medis/preferensi khusus jika ada..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm"></textarea>
+                    </div>
                 </div>
             </section>
 
-            <button type="submit" id="btnSubmit" class="btn-submit">Kirim Data Pendaftaran</button>
-            <div id="loadingSubmit" class="loading-spinner">Memproses pendaftaran, mohon tunggu...</div>
+            <!-- SUBMIT BUTTON -->
+            <div class="flex flex-col items-center justify-center pt-4 pb-12">
+                <button type="submit" id="btnSubmit" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/20 transition text-base">Kirim Data Pendaftaran</button>
+                <div id="loadingSubmit" class="text-sm text-indigo-600 font-medium mt-3 hidden">Memproses pendaftaran, mohon tunggu...</div>
+            </div>
+
         </form>
     </main>
 
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="mb-4">
+                <strong class="text-white text-base">MindLab Private Learning Studio</strong><br>
+                Email: mindlab.edulearn@gmail.com | Konsultasi: 0878-7961-3867 (Admin)
+            </div>
+            <p>&copy; 2026. Made with ❤️ by Mindlab</p>
+        </div>
+    </footer>
+
     <!-- HUBUNGKAN KE SCRIPT OOP -->
     <script src="js/form-handler.js"></script>
+    <script>
+    // Menggabungkan angka 62 secara real-time saat orang tua mengetik nomor
+    const userInput = document.getElementById('whatsapp-user');
+    const hiddenInput = document.getElementById('whatsapp');
+
+    userInput.addEventListener('input', function() {
+        let val = this.value.trim();
+        
+        // Jika orang tua tidak sengaja mengetik angka 0 di depan, hapus otomatis
+        if (val.startsWith('0')) {
+            val = val.substring(1);
+            this.value = val;
+        }
+        
+        // Masukkan format lengkap (62 + nomor) ke dalam hidden input untuk database
+        hiddenInput.value = val ? '62' + val : '';
+    });
+</script>
 </body>
 </html>

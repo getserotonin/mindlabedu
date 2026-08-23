@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,92 +6,92 @@
     <title>MindLab - Private Learning Studio</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css"> 
+    <!-- Tailwind CSS Output -->
+    <link rel="stylesheet" href="css/output.css">
     <script src="js/form-handler.js"></script>
 
     <!-- Font Awesome untuk Ikon Premium -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  
-    
 </head>
-<body>
+<body class="font-['Plus_Jakarta_Sans',sans-serif] bg-white text-gray-800 antialiased selection:bg-indigo-600 selection:text-white">
 
     <!-- NAVBAR (GLASSMORPHISM) -->
-    <nav>
-        <div class="container nav-container">
-            <a href="index.html" class="logo">Mind<span>Lab</span></a>
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <a href="index.html" class="text-2xl font-extrabold text-gray-900 tracking-tight">Mind<span class="text-indigo-600">Lab</span></a>
             
             <!-- Tombol Burger untuk Mobile -->
-            <div class="menu-toggle" id="mobile-menu">
+            <div class="md:hidden text-2xl text-gray-700 cursor-pointer" id="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
             
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="#">Modul & Worksheet</a></li>
-                <li><a href="pendaftaran.html" class="btn" style="padding: 10px 24px; box-shadow: none; color: #ffffff; font-weight: 700;">Daftar</a></li>
+            <ul class="hidden md:flex items-center space-x-8 font-medium text-gray-600">
+                <li><a href="index.html" class="text-indigo-600 font-semibold">Home</a></li>
+                <li><a href="#" class="hover:text-indigo-600 transition">Modul & Worksheet</a></li>
+                <li><a href="pendaftaran.html" class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-sm transition">Daftar</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
-    <header class="hero">
-        <div class="container">
-            <span class="announcement">📢 Pendaftaran Siswa Baru Telah Dibuka</span>
-            <h1>Tumbuhkan Potensi Belajar Anak Secara <span>Mandiri & Personal</span></h1>
-            <p class="tagline">Pendampingan privat eksklusif berfokus pada eksplorasi bermakna, keberanian mencoba, dan tumbuh kembang karakter anak.</p>
-            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="pendaftaran.html" class="btn">Pilih Sesi Belajar</a>
-                <a href="journey.html" class="btn btn-secondary">Laporan Belajar</a>
+    <header class="py-20 md:py-28 bg-linear
+    -to-b from-indigo-50/50 to-white text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <span class="inline-block bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-indigo-100 shadow-sm">📢 Pendaftaran Siswa Baru Telah Dibuka</span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">Tumbuhkan Potensi Belajar Anak Secara <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-500">Mandiri & Personal</span></h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">Pendampingan privat eksklusif berfokus pada eksplorasi bermakna, keberanian mencoba, dan tumbuh kembang karakter anak.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="pendaftaran.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/20 transition">Pilih Sesi Belajar</a>
+                <a href="journey.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 shadow-sm font-semibold transition">Laporan Belajar</a>
             </div>
         </div>
     </header>
 
     <!-- CORE FEATURES -->
-    <section class="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">🏠</div>
-                    <h3>Door to Door</h3>
-                    <p>Kami hadir langsung di rumah Anda. Proses belajar berjalan lebih aman, fokus, dan nyaman tanpa lelah di perjalanan.</p>
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50/50 border border-gray-100 rounded-2xl p-8 transition hover:shadow-lg hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">🏠</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Door to Door</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Kami hadir langsung di rumah Anda. Proses belajar berjalan lebih aman, fokus, dan nyaman tanpa lelah di perjalanan.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">👥</div>
-                    <h3>Private Session</h3>
-                    <p>Pendampingan personal intensif secara eksklusif (1 siswa) atau kelompok sangat kecil (2-3 siswa) per sesi.</p>
+                <div class="bg-gray-50/50 border border-gray-100 rounded-2xl p-8 transition hover:shadow-lg hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">👥</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Private Session</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pendampingan personal intensif secara eksklusif (1 siswa) atau kelompok sangat kecil (2-3 siswa) per sesi.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">⏱️</div>
-                    <h3>1 Jam Efektif</h3>
-                    <p>Durasi belajar dirancang optimal (1 jam per mata pelajaran) menjaga fokus serta konsentrasi anak tetap prima.</p>
+                <div class="bg-gray-50/50 border border-gray-100 rounded-2xl p-8 transition hover:shadow-lg hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">⏱️</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">1 Jam Efektif</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Durasi belajar dirancang optimal (1 jam per mata pelajaran) menjaga fokus serta konsentrasi anak tetap prima.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PROGRAMS & SESSIONS -->
-    <section class="programs">
-        <div class="container">
-            <h2 class="section-title">Program <span>Pilihan Terbaik</span></h2>
-            <div class="programs-grid">
+    <section class="py-20 bg-gray-50/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-gray-900 mb-12">Program <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-500">Pilihan Terbaik</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Program TK -->
-                <div class="program-box">
-                    <div class="program-header">🎒 Tingkat Prasekolah (TK A & TK B)</div>
-                    <ul class="subject-list">
-                        <li>Mengaji Dasar</li>
-                        <li>Calistung Dasar</li>
+                <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="bg-indigo-600 text-white font-bold p-5 text-lg flex items-center gap-3">🎒 Tingkat Prasekolah (TK A & TK B)</div>
+                    <ul class="p-6 space-y-3 text-gray-700">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Mengaji Dasar</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Calistung Dasar</li>
                     </ul>
                 </div>
                 <!-- Program SD -->
-                <div class="program-box">
-                    <div class="program-header">📘 Sekolah Dasar (SD Kelas 1-6)</div>
-                    <ul class="subject-list">
-                        <li>Matematika</li>
-                        <li>Bahasa Indonesia</li>
-                        <li>Bahasa Inggris</li>
-                        <li>IPAS</li>
-                        <li>persiapan TKA</li>
+                <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="bg-indigo-600 text-white font-bold p-5 text-lg flex items-center gap-3">📘 Sekolah Dasar (SD Kelas 1-6)</div>
+                    <ul class="p-6 space-y-3 text-gray-700">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Matematika</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Bahasa Indonesia</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Bahasa Inggris</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> IPAS</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Persiapan TKA</li>
                     </ul>
                 </div>
             </div>
@@ -100,137 +99,130 @@
     </section>
 
     <!-- SECTION LIVE JADWAL -->
-<section class="live-schedule" style="background-color: #FFFFFF; max-width: 800px; margin: 0 auto;"
-    <div class="container">
-        <h2 class="section-title">Kuota & <span>Jadwal Sesi Belajar</span></h2>
-        <p style="text-align: center; color: var(--text-muted); margin-top: -24px; margin-bottom: 32px; font-weight: 500;">
-            Dipantau langsung secara real-time dari database MindLab Studio.
-        </p>
-        
-        <div class="table-responsive">
-            <table class="schedule-table">
-                <thead>
-                    <tr>
-                        <th>Hari</th>
-                        <th>Sesi & Waktu Belajar</th>
-                        <th style="text-align: center;">Status Slot</th>
-                    </tr>
-                </thead>
-                <tbody id="schedule-data-rows">
-                    <!-- Data dari Google Sheets akan masuk ke sini secara otomatis -->
-                    <tr>
-                        <td colspan="3" class="loading-text">🔄 Sedang menghubungkan ke database MindLab...</td>
-                    </tr>
-                </tbody>
-            </table>
+    <section class="py-16 bg-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-gray-900 mb-4">Kuota & <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-500">Jadwal Sesi Belajar</span></h2>
+            <p class="text-center text-gray-500 mb-8 font-medium text-sm sm:text-base">
+                Dipantau langsung secara real-time dari database MindLab Studio.
+            </p>
+            
+            <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
+                <table class="w-full border-collapse bg-white text-left">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 uppercase text-xs tracking-wider">
+                            <th class="px-6 py-4 font-bold">Hari</th>
+                            <th class="px-6 py-4 font-bold">Sesi & Waktu Belajar</th>
+                            <th class="px-6 py-4 font-bold text-center">Status Slot</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-data-rows" class="divide-y divide-gray-100 text-sm text-gray-700">
+                        <!-- Data dari Google Sheets akan masuk ke sini secara otomatis -->
+                        <tr>
+                            <td colspan="3" class="px-6 py-8 text-center text-gray-500">🔄 Sedang menghubungkan ke database MindLab...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</section>
-
-
+    </section>
 
     <!-- WHY US (BENEFITS) -->
-    <section class="why-us">
-        <div class="container">
-            <h2 class="section-title">Mengapa Memilih <span>MindLab?</span></h2>
-            <div class="why-us-grid">
-                <div class="benefit-card">
-                    <h4>⭐ Guru Bersertifikasi</h4>
-                    <p>Pengajar kompeten lulusan pendidikan formal yang bersertifikasi resmi (PPG).</p>
+    <section class="py-20 bg-gray-50/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-gray-900 mb-12">Mengapa Memilih <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-500">MindLab?</span></h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">⭐ Guru Bersertifikasi</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pengajar kompeten lulusan pendidikan formal yang bersertifikasi resmi (PPG).</p>
                 </div>
-                <div class="benefit-card">
-                    <h4>⭐ Berpengalaman</h4>
-                    <p>Pendekatan mengajar ramah anak yang adaptif, interaktif, dan teruji di lapangan.</p>
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">⭐ Berpengalaman</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pendekatan mengajar ramah anak yang adaptif, interaktif, dan teruji di lapangan.</p>
                 </div>
-                <div class="benefit-card">
-                    <h4>⭐ Kebutuhan Personal</h4>
-                    <p>Kurikulum dan tempo pembelajaran disesuaikan penuh dengan kesiapan belajar anak.</p>
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">⭐ Kebutuhan Personal</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Kurikulum dan tempo pembelajaran disesuaikan penuh dengan kesiapan belajar anak.</p>
                 </div>
-                <div class="benefit-card">
-                    <h4>⭐ Laporan Berkala</h4>
-                    <p>Progres pencapaian belajar dipantau teliti dan dilaporkan berkala secara transparan.</p>
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">⭐ Laporan Berkala</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Progres pencapaian belajar dipantau teliti dan dilaporkan berkala secara transparan.</p>
                 </div>
             </div>
 
-            <div class="quote-box">
+            <div class="mt-12 max-w-3xl mx-auto bg-indigo-50/60 border-l-4 border-indigo-600 p-6 rounded-r-2xl italic text-gray-700 text-center shadow-sm">
                 <p>"Setiap anak memiliki ritme dan dunianya sendiri. Tugas kami bukan menuntut mereka mengerti seketika, tetapi menyalakan pemantik rasa ingin tahu agar mereka bangga bertumbuh."</p>
             </div>
         </div>
     </section>
 
     <!-- EVENTS SECTION -->
-    <section class="events">
-        <div class="container">
-            <h2 class="section-title">Agenda & <span>Kegiatan Terdekat</span></h2>
-            <div class="events-grid">
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-gray-900 mb-12">Agenda & <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-500">Kegiatan Terdekat</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Event 1 -->
-                <div class="event-card">
-                    <span class="event-badge">Soon</span>
-                    <div class="event-content">
-                        <div>
-                            <h3 class="event-title">Kelas Uji Coba Gratis </h3>
-                            <p class="event-meta">📅 Kuota Terbatas | 📍 Area Layanan Mandiri</p>
-                            <p>Evaluasi awal untuk mengenali profil belajar anak secara langsung sebelum memulai komitmen bimbingan penuh bersama MindLab.</p>
-                        </div>
-                        <a href="#" class="btn btn-disabled" style="padding: 10px 0; font-size:0.9rem;">Soon</a>
+                <div class="bg-gray-50/50 border border-gray-100 rounded-2xl p-6 shadow-sm relative flex flex-col justify-between">
+                    <span class="absolute top-6 right-6 text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800">Soon</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Kelas Uji Coba Gratis</h3>
+                        <p class="text-xs font-semibold text-indigo-600 mb-4">📅 Kuota Terbatas | 📍 Area Layanan Mandiri</p>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">Evaluasi awal untuk mengenali profil belajar anak secara langsung sebelum memulai komitmen bimbingan penuh bersama MindLab.</p>
                     </div>
+                    <a href="#" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-gray-400 bg-gray-200 cursor-not-allowed font-medium text-sm">Soon</a>
                 </div>
                 <!-- Event 2 -->
-                <div class="event-card">
-                    <span class="event-badge" style="background-color: var(--brand-primary);">Learning Journey</span>
-                    <div class="event-content">
-                        <div>
-                            <h3 class="event-title">Rilis Laporan Belajar Siswa</h3>
-                            <p class="event-meta">📂 Akses Digital | 🚀 Lihat Progres Siswa</p>
-                            <p>Pantau perkembangan akademik dan rekam jejak belajar anak secara berkala melalui sistem laporan digital yang transparan dan terstruktur.</p>
-                        </div>
-                        <a href="journey.html" class="btn" style="padding: 10px 0; font-size:0.9rem;">Lihat Laporan Belajar</a>
+                <div class="bg-gray-50/50 border border-gray-100 rounded-2xl p-6 shadow-sm relative flex flex-col justify-between">
+                    <span class="absolute top-6 right-6 text-xs font-bold px-3 py-1 rounded-full bg-indigo-600 text-white">Learning Journey</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Rilis Laporan Belajar Siswa</h3>
+                        <p class="text-xs font-semibold text-indigo-600 mb-4">📂 Akses Digital | 🚀 Lihat Progres Siswa</p>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">Pantau perkembangan akademik dan rekam jejak belajar anak secara berkala melalui sistem laporan digital yang transparan dan terstruktur.</p>
                     </div>
+                    <a href="journey.html" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 text-sm transition shadow-sm">Lihat Laporan Belajar</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PHILOSOPHY (MIND) -->
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title">Filosofi <span>Ruang Belajar</span></h2>
-            <div class="mind-grid">
-                <div class="mind-card">
-                    <div class="mind-letter">M</div>
-                    <div class="mind-title">Meaningful</div>
-                    <p>Membangun pembelajaran relevan yang berakar kuat pada pemahaman kontekstual anak.</p>
+    <section class="py-20 bg-gray-50/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-gray-900 mb-12">Filosofi <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-500">Ruang Belajar</span></h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white border border-indigo-100/60 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl font-extrabold text-indigo-600 mb-2">M</div>
+                    <div class="text-lg font-bold text-gray-900 mb-2">Meaningful</div>
+                    <p class="text-gray-600 text-sm">Membangun pembelajaran relevan yang berakar kuat pada pemahaman kontekstual anak.</p>
                 </div>
-                <div class="mind-card">
-                    <div class="mind-letter">I</div>
-                    <div class="mind-title">Inspiring</div>
-                    <p>Menstimulasi imajinasi kreatif dan memicu rasa ingin tahu alami dalam diri anak.</p>
+                <div class="bg-white border border-indigo-100/60 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl font-extrabold text-indigo-600 mb-2">I</div>
+                    <div class="text-lg font-bold text-gray-900 mb-2">Inspiring</div>
+                    <p class="text-gray-600 text-sm">Menstimulasi imajinasi kreatif dan memicu rasa ingin tahu alami dalam diri anak.</p>
                 </div>
-                <div class="mind-card">
-                    <div class="mind-letter">N</div>
-                    <div class="mind-title">Nurturing</div>
-                    <p>Menjaga kenyamanan emosional anak lewat pengondisian lingkungan belajar yang positif.</p>
+                <div class="bg-white border border-indigo-100/60 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl font-extrabold text-indigo-600 mb-2">N</div>
+                    <div class="text-lg font-bold text-gray-900 mb-2">Nurturing</div>
+                    <p class="text-gray-600 text-sm">Menjaga kenyamanan emosional anak lewat pengondisian lingkungan belajar yang positif.</p>
                 </div>
-                <div class="mind-card">
-                    <div class="mind-letter">D</div>
-                    <div class="mind-title">Development</div>
-                    <p>Fokus penuh pada pengembangan logika berpikir logis, karakter mandiri, dan capaian akademik.</p>
+                <div class="bg-white border border-indigo-100/60 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl font-extrabold text-indigo-600 mb-2">D</div>
+                    <div class="text-lg font-bold text-gray-900 mb-2">Development</div>
+                    <p class="text-gray-600 text-sm">Fokus penuh pada pengembangan logika berpikir logis, karakter mandiri, dan capaian akademik.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-info">
-                <strong>MindLab Private Learning Studio</strong><br>
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="mb-4">
+                <strong class="text-white text-base">MindLab Private Learning Studio</strong><br>
                 Email: mindlab.edulearn@gmail.com | Konsultasi: 0878-7961-3867 (Admin)
             </div>
             <p>&copy; 2026. Made with ❤️ by Mindlab</p>
         </div>
     </footer>
-
 
     <!-- Panggil file JavaScript eksternal yang sudah dibuat -->
     <script src="js/main.js"></script>

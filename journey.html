@@ -6,89 +6,104 @@
     <title>Learning Journey - MindLab</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Style Utama & Invoice -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/invoice.css">
+    <!-- Tailwind CSS Output -->
+    <link rel="stylesheet" href="css/output.css">
     <!-- Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<body>
+<body class="font-['Plus_Jakarta_Sans',sans-serif] bg-gray-50 text-gray-800 antialiased selection:bg-indigo-600 selection:text-white">
 
-    <!-- NAVBAR (GLASSMORPHISM) - SAMA SEPERTI INDEX -->
-    <nav>
-        <div class="container nav-container">
-            <a href="index.html" class="logo">Mind<span>Lab</span></a>
+    <!-- NAVBAR (GLASSMORPHISM) -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <a href="index.html" class="text-2xl font-extrabold text-gray-900 tracking-tight">Mind<span class="text-indigo-600">Lab</span></a>
             
             <!-- Tombol Burger untuk Mobile -->
-            <div class="menu-toggle" id="mobile-menu">
+            <div class="md:hidden text-2xl text-gray-700 cursor-pointer" id="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
             
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="modul-ajar.html">Modul & Worksheet</a></li>
-                <li><a href="pendaftaran.html" class="btn" style="padding: 10px 24px; box-shadow: none; color: #ffffff; font-weight: 700;">Daftar</a></li>
+            <ul class="hidden md:flex items-center space-x-8 font-medium text-gray-600">
+                <li><a href="index.html" class="hover:text-indigo-600 transition">Home</a></li>
+                <li><a href="#" class="hover:text-indigo-600 transition">Modul & Worksheet</a></li>
+                <li><a href="pendaftaran.html" class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-sm transition">Daftar</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="invoice-container" style="margin-top: 40px;">
-        
-        <!-- Panel Pencarian & Filter -->
-        <div class="control-panel" style="flex-direction: column; gap: 12px; align-items: stretch;">
-            <div class="search-box" style="max-width: 100%;">
-                <input type="text" id="searchJourneyInput" placeholder="Ketik ID Siswa" style="width: 100%;" />
-            </div>
+    <!-- MAIN CONTAINER (Invoice / Journey Card Style) -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
+        <div class="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 sm:p-10">
             
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <select id="filterPeriode" style="flex: 1; padding: 12px 16px; border: 2px solid #E2E8F0; border-radius: 100px; outline: none; font-weight: 500; background: white; color: var(--brand-dark);">
-                    <option value="">Semua Periode</option>
-                    <option value="Juli 2026">Juli 2026</option>
-                    <option value="Ags 2026">Ags 2026</option>
-                </select>
+            <!-- Panel Pencarian & Filter -->
+            <div class="bg-gray-50 border border-gray-100 rounded-2xl p-4 sm:p-6 mb-8 flex flex-col gap-4">
+                <div class="w-full">
+                    <input type="text" id="searchJourneyInput" placeholder="Ketik ID Siswa (Contoh: MLD-001)" class="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm sm:text-base shadow-sm" />
+                </div>
                 
-                <select id="filterMatpel" style="flex: 1; padding: 12px 16px; border: 2px solid #E2E8F0; border-radius: 100px; outline: none; font-weight: 500; background: white; color: var(--brand-dark);">
-                    <option value="">Semua Mata Pelajaran</option>
-                    <option value="Matematika">Matematika</option>
-                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                    <option value="Bahasa Inggris">Bahasa Inggris</option>
-                    <option value="IPAS">IPAS</option>
-                </select>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <select id="filterPeriode" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium bg-white text-gray-700 text-sm shadow-sm">
+                        <option value="">Semua Periode</option>
+                        <option value="Juli 2026">Juli 2026</option>
+                        <option value="Ags 2026">Ags 2026</option>
+                    </select>
+                    
+                    <select id="filterMatpel" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium bg-white text-gray-700 text-sm shadow-sm">
+                        <option value="">Semua Mata Pelajaran</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                        <option value="Bahasa Inggris">Bahasa Inggris</option>
+                        <option value="IPAS">IPAS</option>
+                    </select>
 
-                <button onclick="searchJourney()" style="padding: 12px 28px;" class="btn">Cari Journey</button>
+                    <button onclick="searchJourney()" class="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-sm transition text-sm">Cari Journey</button>
+                </div>
             </div>
+
+            <!-- Header Learning Journey -->
+            <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-100 pb-6 mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Mind<span class="text-indigo-600">Lab</span></h1>
+                    <p class="text-xs font-bold tracking-widest text-gray-400 mt-1 uppercase">LEARNING JOURNEY STUDIO</p>
+                </div>
+                <div class="bg-indigo-50 border border-indigo-100 px-5 py-2.5 rounded-2xl">
+                    <h2 class="text-lg font-extrabold text-indigo-700 tracking-wide">JOURNEY</h2>
+                </div>
+            </header>
+
+            <!-- Informasi Siswa -->
+            <section class="bg-gray-50/50 border border-gray-100 p-6 rounded-2xl mb-8" id="student-info-section" style="display: none;">
+                <div>
+                    <p class="text-xs font-bold text-gray-400 tracking-wider mb-1">LAPORAN BELAJAR UNTUK:</p>
+                    <h3 id="journey-student-name" class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">-</h3>
+                    <p class="text-sm font-medium text-gray-600">Total Pertemuan Tercatat: <span id="total-sessions" class="font-bold text-indigo-600">0</span> Sesi</p>
+                </div>
+            </section>
+
+            <!-- Container Daftar Riwayat / Timeline Sesi -->
+            <div id="journey-timeline-container">
+                <p class="text-center text-gray-400 py-12 text-sm sm:text-base font-medium">Silakan ketik ID siswa dan sesuaikan filter di atas.</p>
+            </div>
+
+            <!-- Footer Card -->
+            <footer class="border-t border-gray-100 pt-8 mt-12 text-center text-gray-500 text-sm">
+                <p class="font-medium text-gray-700 mb-1">Terus semangat belajar bersama MindLab!</p>
+                <p class="text-xs font-semibold tracking-wider text-indigo-600 uppercase">Learn. Explore. Grow.</p>
+            </footer>
+
         </div>
+    </main>
 
-        <!-- Header Learning Journey -->
-        <header class="invoice-header">
-            <div class="brand">
-                <h1>Mind<span>Lab</span></h1>
-                <p>LEARNING JOURNEY STUDIO</p>
+    <!-- FOOTER UTAMA -->
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm mt-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="mb-4">
+                <strong class="text-white text-base">MindLab Private Learning Studio</strong><br>
+                Email: mindlab.edulearn@gmail.com | Konsultasi: 0878-7961-3867 (Admin)
             </div>
-            <div class="invoice-title">
-                <h2>JOURNEY</h2>
-            </div>
-        </header>
-
-        <!-- Informasi Siswa -->
-        <section class="invoice-details" id="student-info-section" style="display: none;">
-            <div class="billed-to">
-                <p class="label">LAPORAN BELAJAR UNTUK:</p>
-                <h3 id="journey-student-name">-</h3>
-                <p class="sub-text">Total Pertemuan Tercatat: <span id="total-sessions">0</span> Sesi</p>
-            </div>
-        </section>
-
-        <!-- Container Daftar Riwayat / Timeline Sesi -->
-        <div id="journey-timeline-container">
-            <p class="text-muted" style="text-align: center; padding: 30px;">Silakan ketik ID siswa dan sesuaikan filter di atas.</p>
+            <p>&copy; 2026. Made with ❤️ by Mindlab</p>
         </div>
-
-        <footer class="invoice-footer" style="margin-top: 40px;">
-            <p>Terus semangat belajar bersama MindLab!</p>
-            <p class="motto">Learn. Explore. Grow.</p>
-        </footer>
-    </div>
+    </footer>
 
     <!-- SCRIPT UTAMA & FETCH JOURNEY -->
     <script src="js/main.js"></script>
@@ -110,7 +125,7 @@
                 return;
             }
 
-            container.innerHTML = '<p style="text-align: center; padding: 30px; color: var(--text-muted);">Memuat data perjalanan belajar...</p>';
+            container.innerHTML = '<p class="text-center py-12 text-gray-500 font-medium">Memuat data perjalanan belajar...</p>';
             infoSection.style.display = 'none';
 
             let targetUrl = `${WEB_APP_URL}?action=getJourney&id=${encodeURIComponent(inputIdSiswa)}`;
@@ -121,45 +136,46 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status !== 'success' || !result.data || result.data.length === 0) {
-                        container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C; font-weight: 600;">Data pembelajaran tidak ditemukan dengan ID atau filter tersebut.</p>';
+                        container.innerHTML = '<p class="text-center py-12 text-red-600 font-semibold">Data pembelajaran tidak ditemukan dengan ID atau filter tersebut.</p>';
                         return;
                     }
 
                     const dataSesi = result.data;
                     nameHeader.textContent = dataSesi[0].namaSiswa;
                     totalSessionsEl.textContent = dataSesi.length;
-                    infoSection.style.display = 'grid';
+                    infoSection.style.display = 'block';
 
-                    let html = '<div style="display: flex; flex-direction: column; gap: 20px;">';
+                    let html = '<div class="flex flex-col gap-6">';
                     
                     dataSesi.forEach((item, index) => {
                         html += `
-                            <div style="background: var(--brand-light); border: 1px solid #E2E8F0; border-radius: var(--radius-md); padding: 24px;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                                    <strong style="color: var(--brand-primary); font-size: 1.1rem;">Sesi #${index + 1} — ${item.matpel || 'Umum'} (${item.jenjang || '-'})</strong>
-                                    <span class="status-badge lunas">${item.tanggalSesi} (${item.periode})</span>
+                            <div class="bg-gray-50/50 border border-gray-100 rounded-2xl p-6 transition hover:shadow-md">
+                                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 border-b border-gray-100 pb-3">
+                                    <strong class="text-indigo-600 text-base sm:text-lg font-bold">Sesi #${index + 1} — ${item.matpel || 'Umum'} (${item.jenjang || '-'})</strong>
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full">${item.tanggalSesi} (${item.periode})</span>
                                 </div>
 
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-bottom: 14px; font-size: 0.9rem; color: var(--text-muted);">
-                                    <div><strong>Waktu:</strong> ${item.sesiWaktu}</div>
-                                    <div><strong>Tutor:</strong> ${item.tutor}</div>
-                                    <div><strong>Kelas:</strong> ${item.kelas}</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 text-sm text-gray-600 font-medium bg-white p-4 rounded-xl border border-gray-100">
+                                    <div><strong class="text-gray-900">Waktu:</strong> ${item.sesiWaktu}</div>
+                                    <div><strong class="text-gray-900">Tutor:</strong> ${item.tutor}</div>
+                                    <div><strong class="text-gray-900">Kelas:</strong> ${item.kelas}</div>
                                 </div>
 
-                                <div style="margin-bottom: 12px;">
-                                    <span class="label" style="margin-bottom: 2px;">Topik: <strong>${item.topik || '-'}</strong></span>
-                                    <p style="font-size: 0.95rem; color: var(--brand-dark);"><strong>Materi:</strong> ${item.materi || '-'}</p>
+                                <div class="mb-4 text-sm">
+                                    <span class="block text-gray-500 font-semibold mb-1">Topik: <strong class="text-gray-900">${item.topik || '-'}</strong></span>
+                                    <p class="text-gray-700 leading-relaxed"><strong class="text-gray-900">Materi:</strong> ${item.materi || '-'}</p>
                                 </div>
 
                                 ${item.tercapai ? `
-                                <div style="background: #DCFCE7; color: #15803D; padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 10px; font-size: 0.9rem; border: 1px solid #BBF7D0;">
-                                    <strong>✅ Yang Dicapai:</strong> ${item.tercapai}
+                                <div class="bg-emerald-50 text-emerald-800 p-4 rounded-xl mb-3 text-sm border border-emerald-100 flex items-start gap-2">
+                                    <span>✅</span>
+                                    <div><strong>Yang Dicapai:</strong> ${item.tercapai}</div>
                                 </div>` : ''}
 
                                 ${item.pengayaan ? `
-                                <div style="background: var(--white); padding: 12px 16px; border-radius: var(--radius-sm); border-left: 4px solid var(--brand-primary); border: 1px solid #E2E8F0; font-size: 0.9rem;">
-                                    <strong style="color: var(--brand-primary);">💡 Catatan / Pengayaan:</strong>
-                                    <p style="color: var(--text-main); margin-top: 4px;">${item.pengayaan}</p>
+                                <div class="bg-white p-4 rounded-xl border-l-4 border-indigo-600 border border-gray-100 text-sm">
+                                    <strong class="text-indigo-600 block mb-1">💡 Catatan / Pengayaan:</strong>
+                                    <p class="text-gray-600 leading-relaxed">${item.pengayaan}</p>
                                 </div>` : ''}
                             </div>
                         `;
@@ -170,7 +186,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    container.innerHTML = '<p style="text-align: center; padding: 30px; color: #B91C1C;">Terjadi kesalahan saat mengambil data.</p>';
+                    container.innerHTML = '<p class="text-center py-12 text-red-600 font-semibold">Terjadi kesalahan saat mengambil data.</p>';
                 });
         }
 

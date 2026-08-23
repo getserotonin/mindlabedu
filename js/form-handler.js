@@ -106,7 +106,7 @@ class FormUI {
         }
     }
 
-    getFormData() {
+  getFormData() {
         const formDataObj = new FormData(this.form);
         const data = {};
         
@@ -121,6 +121,22 @@ class FormUI {
             }
         }
 
+        // --- TAMBAHAN: OTOMATIS TAMBAH KODE 62 & BERSIHKAN ANGKA 0 DI DEPAN ---
+        if (data['whatsapp']) {
+            let wa = data['whatsapp'].trim();
+            // Jika tidak sengaja mengetik angka 0 di awal, buang angka 0-nya
+            if (wa.startsWith('0')) {
+                wa = wa.substring(1);
+            }
+            // Jika belum ada awalan 62, tambahkan 62 di depannya
+            if (!wa.startsWith('62')) {
+                data['whatsapp'] = '62' + wa;
+            } else {
+                data['whatsapp'] = wa;
+            }
+        }
+        // ------------------------------------------------------------------
+
         if (data['pilihanHari[]']) {
             data['pilihanHari'] = Array.isArray(data['pilihanHari[]']) 
                 ? data['pilihanHari[]'].join(', ') 
@@ -131,6 +147,7 @@ class FormUI {
         return data;
     }
 
+    
     resetForm() {
         this.form.reset();
         this.sessionSelect.innerHTML = '<option value="">Pilih Hari Terlebih Dahulu...</option>';
