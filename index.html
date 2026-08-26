@@ -1,277 +1,330 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindLab - Private Learning Studio</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS Output -->
-    <link rel="stylesheet" href="css/output.css">
-    <script src="js/form-handler.js"></script>
-
-    <!-- Font Awesome untuk Ikon Premium -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body class="font-['Plus_Jakarta_Sans',sans-serif] bg-[#FAFAFA] text-gray-800 antialiased selection:bg-indigo-600 selection:text-white">
-
-    <!-- NAVBAR (GLASSMORPHISM) -->
-    <nav class="sticky top-0 z-50 bg-white/85 backdrop-blur-lg border-b border-gray-100 shadow-sm transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="index.html" class="text-2xl font-extrabold text-gray-900 tracking-tight transition-transform hover:scale-105 duration-300">
-                Mind<span class="text-indigo-600">Lab</span>
-            </a>
-            
-            <!-- Tombol Burger untuk Mobile -->
-            <div class="md:hidden text-2xl text-gray-700 cursor-pointer hover:text-indigo-600 transition" id="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-            
-            <ul class="hidden md:flex items-center space-x-8 font-medium text-gray-600">
-                <li><a href="index.html" class="text-indigo-600 font-semibold">Home</a></li>
-                <li><a href="#" class="hover:text-indigo-600 transition-colors duration-300">Modul & Worksheet</a></li>
-                <li><a href="pendaftaran.html" class="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-0.5 transition-all duration-300">Daftar</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <header class="relative pt-24 pb-20 md:pt-32 md:pb-28 bg-gradient-to-b from-indigo-50/80 via-white to-[#FAFAFA] text-center overflow-hidden">
-        <!-- Elemen Dekorasi Latar Belakang -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-100/40 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MindLab - Private Learning Studio</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         
-        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-            <span class="inline-flex items-center gap-2 bg-white text-indigo-700 text-xs sm:text-sm font-bold px-5 py-2 rounded-full mb-8 border border-indigo-100 shadow-sm animate-fade-in-up">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                </span>
-                Pendaftaran Siswa Baru Telah Dibuka
-            </span>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.15] mb-6">
-                Tumbuhkan Potensi Belajar Anak Secara <br class="hidden sm:block">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Mandiri & Personal</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
-                Pendampingan privat eksklusif berfokus pada eksplorasi bermakna, keberanian mencoba, dan tumbuh kembang karakter anak.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="pendaftaran.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-1 transition-all duration-300 text-base">
-                    Pilih Sesi Belajar
-                </a>
-                <a href="journey.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-gray-700 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 shadow-sm hover:shadow hover:-translate-y-1 font-semibold transition-all duration-300 text-base">
-                    Laporan Belajar
-                </a>
-            </div>
-        </div>
-    </header>
+        <!-- Tailwind CSS Output -->
+        <link rel="stylesheet" href="css/output.css">
+        
+        <script src="js/form-handler.js"></script>
 
-    <!-- CORE FEATURES -->
-    <section class="py-20 bg-[#FAFAFA]">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">🏠</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Door to Door</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Kami hadir langsung di rumah Anda. Proses belajar berjalan lebih aman, fokus, dan nyaman tanpa lelah di perjalanan.</p>
-                </div>
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">👥</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Private Session</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Pendampingan personal intensif secara eksklusif (1 siswa) atau kelompok sangat kecil (2-3 siswa) per sesi.</p>
-                </div>
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">⏱️</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">1 Jam Efektif</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Durasi belajar dirancang optimal (1 jam per mata pelajaran) menjaga fokus serta konsentrasi anak tetap prima.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </head>
+    <body class="font-['Plus_Jakarta_Sans',sans-serif] bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
 
-    <!-- PROGRAMS & SESSIONS -->
-    <section class="py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Program <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Pilihan Terbaik</span></h2>
-                <p class="text-gray-500 font-medium max-w-2xl mx-auto">Dirancang khusus untuk menyesuaikan dengan tahap perkembangan kognitif dan usia anak Anda.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Program TK -->
-                <div class="bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-indigo-50 transition-all duration-300 overflow-hidden group">
-                    <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-bold p-6 text-lg flex items-center gap-4">
-                        <span class="bg-white/20 p-2 rounded-xl text-xl">🎒</span> Tingkat Prasekolah (TK A & TK B)
-                    </div>
-                    <ul class="p-8 space-y-4 text-gray-600 font-medium">
-                        <li class="flex items-center gap-3"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 text-xs">✓</span> Mengaji Dasar</li>
-                        <li class="flex items-center gap-3"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 text-xs">✓</span> Calistung Dasar</li>
-                    </ul>
+        <!-- NAVBAR -->
+        <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all duration-300">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+                <a href="index.html" class="text-2xl font-extrabold text-slate-900 tracking-tight transition hover:opacity-80 flex items-center gap-1">
+                    Mind<span class="text-indigo-600">Lab</span>
+                </a>
+                
+                <!-- Tombol Burger Mobile -->
+                <div class="md:hidden text-2xl text-slate-600 cursor-pointer hover:text-indigo-600 transition" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
                 </div>
-                <!-- Program SD -->
-                <div class="bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-violet-50 transition-all duration-300 overflow-hidden group">
-                    <div class="bg-gradient-to-r from-violet-600 to-violet-500 text-white font-bold p-6 text-lg flex items-center gap-4">
-                        <span class="bg-white/20 p-2 rounded-xl text-xl">📘</span> Sekolah Dasar (SD Kelas 1-6)
-                    </div>
-                    <ul class="p-8 space-y-4 text-gray-600 font-medium grid grid-cols-1 sm:grid-cols-2">
-                        <li class="flex items-center gap-3"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-violet-50 text-violet-600 text-xs">✓</span> Matematika</li>
-                        <li class="flex items-center gap-3"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-violet-50 text-violet-600 text-xs">✓</span> Bahasa Indonesia</li>
-                        <li class="flex items-center gap-3"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-violet-50 text-violet-600 text-xs">✓</span> Bahasa Inggris</li>
-                        <li class="flex items-center gap-3"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-violet-50 text-violet-600 text-xs">✓</span> IPAS</li>
-                        <li class="flex items-center gap-3 sm:col-span-2"><span class="flex items-center justify-center w-6 h-6 rounded-full bg-violet-50 text-violet-600 text-xs">✓</span> Persiapan TKA</li>
-                    </ul>
+                
+                <ul class="hidden md:flex items-center space-x-8 font-medium text-slate-600">
+                    <li><a href="index.html" class="text-indigo-600 font-semibold">Home</a></li>
+                    <li><a href="#" class="hover:text-indigo-600 transition-colors duration-300">Modul & Worksheet</a></li>
+                    <li><a href="pendaftaran.html" class="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-white font-semibold bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300">Daftar Sesi</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <header class="pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-b from-indigo-50/50 to-slate-50 text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="inline-flex items-center gap-2 bg-white text-indigo-600 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full mb-8 border border-indigo-100 shadow-sm">
+    <!-- Menambahkan animate-pulse pada ikon agar ikut berdenyut -->
+    <i class="fas fa-bullhorn text-indigo-400 animate-pulse"></i> 
+    
+    <!-- Membungkus teks utama dengan animate-pulse -->
+    <span class="animate-pulse">Mari belajar dan berkembang bersama MindLab!</span> 
+    
+    <span class="ml-2 text-slate-400 font-normal">Kuota terbatas, daftar segera.</span>
+</div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.2] mb-6">
+                    Tumbuhkan Potensi Belajar Anak Secara <br class="hidden sm:block">
+                    <span class="text-indigo-600">Mandiri & Personal</span>
+                </h1>
+                <p class="text-lg text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Pendampingan privat eksklusif berfokus pada eksplorasi bermakna, keberanian mencoba, dan tumbuh kembang karakter anak.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="pendaftaran.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full text-white font-semibold bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                        Pilih Sesi Belajar <i class="fas fa-arrow-right ml-2 opacity-80 text-sm"></i>
+                    </a>
+                    <a href="journey.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-medium">
+                        <i class="fas fa-chart-pie mr-2 text-indigo-500"></i> Laporan Belajar
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </header>
+
+        <!-- CORE FEATURES -->
+        <section class="py-16 bg-slate-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Feature 1 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-house-user"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Door to Door</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Kami hadir langsung di rumah Anda. Proses belajar berjalan lebih aman, fokus, dan nyaman tanpa lelah di perjalanan.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-user-group"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Private Session</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Pendampingan personal intensif secara eksklusif (1 siswa) atau kelompok sangat kecil (2-3 siswa) per sesi.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-6">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">1 Jam Efektif</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Durasi belajar dirancang optimal (1 jam per mata pelajaran) menjaga fokus serta konsentrasi anak tetap prima.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROGRAMS & SESSIONS (SOFT VERSION) -->
+        <section class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold text-slate-900 mb-4">Program <span class="text-indigo-600">Pilihan Terbaik</span></h2>
+                    <p class="text-slate-500 font-medium max-w-2xl mx-auto">Dirancang khusus untuk menyesuaikan dengan tahap perkembangan kognitif dan usia anak Anda.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Program TK -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-50">
+                            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-shapes"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Prasekolah (TK A & B)</h3>
+                        </div>
+                        <ul class="space-y-4 text-slate-600 text-sm font-medium">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> Mengaji Dasar
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> Calistung Dasar
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Program SD -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-50">
+                            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-book-open-reader"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Sekolah Dasar (Kelas 1-6)</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-600 text-sm font-medium">
+                            <div class="flex items-start gap-3"><i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> Matematika</div>
+                            <div class="flex items-start gap-3"><i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> B. Indonesia</div>
+                            <div class="flex items-start gap-3"><i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> Bahasa Inggris</div>
+                            <div class="flex items-start gap-3"><i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> IPAS</div>
+                            <div class="flex items-start gap-3 sm:col-span-2"><i class="fa-solid fa-check text-indigo-500 mt-0.5"></i> Persiapan TKA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     <!-- SECTION LIVE JADWAL -->
-    <section class="py-24 bg-[#FAFAFA] max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-4">Kuota & <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Jadwal Belajar</span></h2>
-            <p class="text-center text-gray-500 mb-10 font-medium text-sm sm:text-base">
-                Dipantau langsung secara real-time dari database MindLab Studio.
-            </p>
-            
-            <div class="overflow-x-auto rounded-3xl border border-gray-100 shadow-sm bg-white">
-                <table class="w-full border-collapse text-left">
-                    <thead>
-                        <tr class="bg-gray-50/80 text-gray-500 uppercase text-xs tracking-wider border-b border-gray-100">
-                            <th class="px-6 py-5 font-bold">Hari</th>
-                            <th class="px-6 py-5 font-bold">Sesi & Waktu Belajar</th>
-                            <th class="px-6 py-5 font-bold text-center">Status Slot</th>
-                        </tr>
-                    </thead>
-                    <tbody id="schedule-data-rows" class="divide-y divide-gray-50 text-sm text-gray-600 font-medium">
-                        <!-- Data dari Google Sheets akan masuk ke sini secara otomatis -->
-                        <tr>
-                            <td colspan="3" class="px-6 py-12 text-center">
-                                <i class="fas fa-circle-notch fa-spin text-indigo-500 text-2xl mb-3"></i>
-                                <p class="text-gray-500">Sedang menghubungkan ke database MindLab...</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHY US (BENEFITS) -->
-    <section class="py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-16">Mengapa Memilih <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">MindLab?</span></h2>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-[#FAFAFA] border border-gray-100/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-100 hover:bg-white">
-                    <div class="text-xl mb-4 bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm border border-gray-50">⭐</div>
-                    <h4 class="font-bold text-gray-900 mb-2">Guru Bersertifikasi</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">Pengajar kompeten lulusan pendidikan formal yang bersertifikasi resmi (PPG).</p>
-                </div>
-                <div class="bg-[#FAFAFA] border border-gray-100/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-100 hover:bg-white">
-                    <div class="text-xl mb-4 bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm border border-gray-50">🌱</div>
-                    <h4 class="font-bold text-gray-900 mb-2">Berpengalaman</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">Pendekatan mengajar ramah anak yang adaptif, interaktif, dan teruji di lapangan.</p>
-                </div>
-                <div class="bg-[#FAFAFA] border border-gray-100/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-100 hover:bg-white">
-                    <div class="text-xl mb-4 bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm border border-gray-50">🎯</div>
-                    <h4 class="font-bold text-gray-900 mb-2">Kebutuhan Personal</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">Kurikulum dan tempo pembelajaran disesuaikan penuh dengan kesiapan belajar anak.</p>
-                </div>
-                <div class="bg-[#FAFAFA] border border-gray-100/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-100 hover:bg-white">
-                    <div class="text-xl mb-4 bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm border border-gray-50">📊</div>
-                    <h4 class="font-bold text-gray-900 mb-2">Laporan Berkala</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">Progres pencapaian belajar dipantau teliti dan dilaporkan berkala secara transparan.</p>
-                </div>
-            </div>
-
-            <div class="mt-16 max-w-4xl mx-auto relative">
-                <div class="absolute -top-4 -left-4 text-6xl text-indigo-200 opacity-50 font-serif">"</div>
-                <div class="bg-gradient-to-br from-indigo-50 to-white border border-indigo-100/50 p-8 sm:p-10 rounded-3xl text-center shadow-sm">
-                    <p class="text-gray-700 text-lg sm:text-xl leading-relaxed italic font-medium">Setiap anak memiliki ritme dan dunianya sendiri. Tugas kami bukan menuntut mereka mengerti seketika, tetapi menyalakan pemantik rasa ingin tahu agar mereka bangga bertumbuh.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EVENTS SECTION -->
-    <section class="py-24 bg-[#FAFAFA]">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-16">Agenda & <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Kegiatan Terdekat</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Event 1 -->
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 relative flex flex-col justify-between">
-                    <span class="absolute top-8 right-8 text-xs font-bold px-4 py-1.5 rounded-full bg-amber-50 text-amber-600 border border-amber-100">Segera Hadir</span>
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Kelas Uji Coba Gratis</h3>
-                        <p class="text-sm font-semibold text-indigo-600 mb-5 flex items-center gap-2">
-                            <i class="fas fa-calendar-alt"></i> Kuota Terbatas | <i class="fas fa-map-marker-alt ml-2"></i> Area Mandiri
-                        </p>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-8">Evaluasi awal untuk mengenali profil belajar anak secara langsung sebelum memulai komitmen bimbingan penuh bersama MindLab.</p>
+        <section class="py-20 bg-slate-50 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-extrabold text-slate-900 mb-3">Kuota & <span class="text-indigo-600">Jadwal Belajar</span></h2>
+                    <div class="flex items-center justify-center gap-2 text-slate-500 text-sm font-medium">
+                        <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        Live update dari database MindLab
                     </div>
-                    <button disabled class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl text-gray-400 bg-gray-50 border border-gray-100 cursor-not-allowed font-semibold text-sm transition">Nantikan Infonya</button>
                 </div>
-                <!-- Event 2 -->
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:shadow-indigo-50 transition-all duration-300 relative flex flex-col justify-between group">
-                    <span class="absolute top-8 right-8 text-xs font-bold px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">Aktif</span>
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">Rilis Laporan Belajar</h3>
-                        <p class="text-sm font-semibold text-indigo-600 mb-5 flex items-center gap-2">
-                            <i class="fas fa-folder-open"></i> Akses Digital | <i class="fas fa-chart-line ml-2"></i> Lihat Progres
-                        </p>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-8">Pantau perkembangan akademik dan rekam jejak belajar anak secara berkala melalui sistem laporan digital yang transparan dan terstruktur.</p>
+                
+                <div class="bg-white rounded-3xl border border-slate-100 shadow-md shadow-slate-200/40 overflow-hidden relative">
+                    <!-- Dekorasi Garis Gradasi di Atas Tabel -->
+                    <div class="h-1.5 w-full bg-gradient-to-r from-indigo-500 via-purple-400 to-sky-400"></div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
+                            <thead>
+                                <tr class="bg-slate-50/80 text-slate-500 uppercase text-[11px] font-bold tracking-widest border-b border-slate-100">
+                                    <th class="px-8 py-5">Jadwal Hari</th>
+                                    <th class="px-8 py-5">Sesi & Waktu Belajar</th>
+                                    <th class="px-8 py-5 text-center">Status Slot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schedule-data-rows" class="divide-y divide-slate-100 text-sm text-slate-600">
+                                <!-- Loading State yang Lebih Cantik -->
+                                <tr>
+                                    <td colspan="3" class="px-8 py-20 text-center">
+                                        <div class="flex flex-col items-center justify-center space-y-4">
+                                            <div class="w-14 h-14 bg-indigo-50/80 rounded-full flex items-center justify-center shadow-inner">
+                                                <i class="fas fa-circle-notch fa-spin text-indigo-500 text-2xl"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-slate-800 font-bold mb-1">Memuat Jadwal Terbaru...</p>
+                                                <p class="text-slate-400 text-xs font-medium">Sedang menyinkronkan data dengan server MindLab</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <a href="journey.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] text-sm transition-all duration-300">Lihat Laporan Belajar <i class="fas fa-arrow-right ml-2"></i></a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PHILOSOPHY (MIND) -->
-    <section class="py-24 bg-white border-t border-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-16">Filosofi <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Ruang Belajar</span></h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-[#FAFAFA] border border-gray-50 rounded-3xl p-8 text-center hover:bg-white hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-indigo-600 to-indigo-400 mb-4">M</div>
-                    <div class="text-lg font-extrabold text-gray-900 mb-3">Meaningful</div>
-                    <p class="text-gray-500 text-sm leading-relaxed">Membangun pembelajaran relevan yang berakar kuat pada pemahaman kontekstual anak.</p>
+        <!-- WHY US (BENEFITS) -->
+        <section class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-extrabold text-center text-slate-900 mb-12">Mengapa Memilih <span class="text-indigo-600">MindLab?</span></h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Benefit 1 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 text-center">
+                        <div class="w-12 h-12 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 mb-2">Guru Bersertifikasi</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">Pengajar lulusan pendidikan formal yang bersertifikasi resmi (PPG).</p>
+                    </div>
+                    <!-- Benefit 2 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 text-center">
+                        <div class="w-12 h-12 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 mb-2">Berpengalaman</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">Pendekatan mengajar ramah anak yang adaptif dan teruji di lapangan.</p>
+                    </div>
+                    <!-- Benefit 3 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 text-center">
+                        <div class="w-12 h-12 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 mb-2">Personal</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">Kurikulum dan tempo belajar disesuaikan penuh dengan kesiapan anak.</p>
+                    </div>
+                    <!-- Benefit 4 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 text-center">
+                        <div class="w-12 h-12 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 mb-2">Laporan Berkala</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">Progres belajar dipantau teliti dan dilaporkan berkala secara transparan.</p>
+                    </div>
                 </div>
-                <div class="bg-[#FAFAFA] border border-gray-50 rounded-3xl p-8 text-center hover:bg-white hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-indigo-600 to-indigo-400 mb-4">I</div>
-                    <div class="text-lg font-extrabold text-gray-900 mb-3">Inspiring</div>
-                    <p class="text-gray-500 text-sm leading-relaxed">Menstimulasi imajinasi kreatif dan memicu rasa ingin tahu alami dalam diri anak.</p>
-                </div>
-                <div class="bg-[#FAFAFA] border border-gray-50 rounded-3xl p-8 text-center hover:bg-white hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-indigo-600 to-indigo-400 mb-4">N</div>
-                    <div class="text-lg font-extrabold text-gray-900 mb-3">Nurturing</div>
-                    <p class="text-gray-500 text-sm leading-relaxed">Menjaga kenyamanan emosional anak lewat pengondisian lingkungan belajar yang positif.</p>
-                </div>
-                <div class="bg-[#FAFAFA] border border-gray-50 rounded-3xl p-8 text-center hover:bg-white hover:shadow-xl hover:shadow-indigo-50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-indigo-600 to-indigo-400 mb-4">D</div>
-                    <div class="text-lg font-extrabold text-gray-900 mb-3">Development</div>
-                    <p class="text-gray-500 text-sm leading-relaxed">Fokus penuh pada pengembangan logika berpikir logis, karakter mandiri, dan capaian akademik.</p>
+
+                <!-- Quote Soft -->
+                <div class="mt-12 max-w-3xl mx-auto">
+                    <div class="bg-slate-50 border border-slate-100 p-8 rounded-2xl text-center shadow-sm">
+                        <i class="fas fa-quote-left text-indigo-200 text-3xl mb-4"></i>
+                        <p class="text-slate-700 text-lg leading-relaxed font-medium">Setiap anak memiliki ritme dan dunianya sendiri. Tugas kami bukan menuntut mereka mengerti seketika, tetapi menyalakan pemantik rasa ingin tahu agar mereka bangga bertumbuh.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 py-16 text-center text-sm border-t border-gray-800">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="mb-6">
-                <a href="index.html" class="text-2xl font-extrabold text-white tracking-tight inline-block mb-4">
-                    Mind<span class="text-indigo-500">Lab</span>
-                </a>
-                <p class="text-gray-400 max-w-md mx-auto mb-2">Private Learning Studio</p>
-                <p class="text-gray-500">Email: mindlab.edulearn@gmail.com | Konsultasi: 0878-7961-3867 (Admin)</p>
+        <!-- EVENTS SECTION -->
+        <section class="py-20 bg-slate-50 border-t border-slate-100">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-extrabold text-center text-slate-900 mb-12">Agenda & <span class="text-indigo-600">Kegiatan Terdekat</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <!-- Event 1 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-slate-900">Kelas Uji Coba Gratis</h3>
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-500">Segera Hadir</span>
+                        </div>
+                        <p class="text-sm font-semibold text-indigo-500 mb-4 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i> Kuota Terbatas <span class="text-slate-300 mx-1">|</span> <i class="fas fa-map-marker-alt"></i> Area Mandiri
+                        </p>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Evaluasi awal untuk mengenali profil belajar anak secara langsung sebelum memulai komitmen bimbingan penuh bersama MindLab.</p>
+                        <button disabled class="w-full py-3 rounded-full text-slate-400 bg-slate-50 border border-slate-100 font-semibold text-sm cursor-not-allowed">Nantikan Infonya</button>
+                    </div>
+                    
+                    <!-- Event 2 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-slate-900">Rilis Laporan Belajar</h3>
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-50 text-indigo-600">Aktif</span>
+                        </div>
+                        <p class="text-sm font-semibold text-indigo-500 mb-4 flex items-center gap-2">
+                            <i class="fas fa-folder-open"></i> Akses Digital <span class="text-slate-300 mx-1">|</span> <i class="fas fa-chart-line"></i> Lihat Progres
+                        </p>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Pantau perkembangan akademik dan rekam jejak belajar anak secara berkala melalui sistem laporan digital yang transparan dan terstruktur.</p>
+                        <a href="journey.html" class="w-full text-center py-3 rounded-full text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition-colors font-semibold text-sm">Lihat Laporan Belajar</a>
+                    </div>
+                </div>
             </div>
-            <div class="w-24 h-px bg-gray-800 mx-auto mb-6"></div>
-            <p>&copy; 2026. Made with <span class="text-red-500">♥</span> by Mindlab</p>
-        </div>
-    </footer>
+        </section>
 
-    <!-- Panggil file JavaScript eksternal yang sudah dibuat -->
-    <script src="js/main.js"></script>
+        <!-- PHILOSOPHY (MIND) - SOFT & CLEAN -->
+        <section class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-extrabold text-center text-slate-900 mb-12">Filosofi <span class="text-indigo-600">Ruang Belajar</span></h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 mx-auto bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-4">M</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Meaningful</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Membangun pembelajaran relevan yang berakar kuat pada pemahaman kontekstual anak.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 mx-auto bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-4">I</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Inspiring</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Menstimulasi imajinasi kreatif dan memicu rasa ingin tahu alami dalam diri anak.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 mx-auto bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-4">N</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Nurturing</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Menjaga kenyamanan emosional anak lewat pengondisian lingkungan belajar yang positif.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 mx-auto bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-4">D</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Development</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Fokus penuh pada pengembangan logika berpikir logis, karakter mandiri, dan capaian akademik.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-</body>
-</html>
+        <!-- FOOTER -->
+        <footer class="bg-slate-900 text-slate-400 py-12 text-center text-sm">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="mb-6">
+                    <a href="index.html" class="text-2xl font-extrabold text-white tracking-tight inline-block mb-3 transition hover:opacity-80">
+                        Mind<span class="text-indigo-400">Lab</span>
+                    </a>
+                    <p class="text-slate-400 mb-1 font-medium">Private Learning Studio</p>
+                    <p class="text-slate-500">Email: mindlab.edulearn@gmail.com | Konsultasi: 0878-7961-3867</p>
+                </div>
+                <div class="w-12 h-px bg-slate-700 mx-auto mb-6"></div>
+                <p>&copy; 2026. Made with <span class="text-red-500 mx-1">♥</span> by Mindlab</p>
+            </div>
+        </footer>
+
+        <!-- JS -->
+        <script src="js/main.js"></script>
+
+    </body>
+    </html>

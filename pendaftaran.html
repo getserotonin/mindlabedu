@@ -101,13 +101,17 @@
                         <input type="text" id="namaOrtu" name="namaOrtu" required placeholder="Contoh: Ayah Hermawan / Ibu Sari" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm shadow-sm">
                     </div>
 
-                <div class="flex flex-col gap-2">
-                <label for="whatsapp" class="text-sm font-semibold text-gray-700">No. WhatsApp Aktif *</label>
-                <div class="flex rounded-xl border border-gray-200 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-indigo-600 focus-within:border-indigo-600 bg-white">
-                    <span class="inline-flex items-center px-4 bg-gray-100 text-gray-600 font-bold text-sm border-r border-gray-200">+62</span>
-                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="878xxxxxxxx" class="w-full px-4 py-3 border-none focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm">
+                    <div class="flex flex-col gap-2">
+                        <label for="whatsapp-user" class="text-sm font-semibold text-gray-700">No. WhatsApp Aktif *</label>
+                        <div class="flex rounded-xl border border-gray-200 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-indigo-600 focus-within:border-indigo-600 bg-white">
+                            <span class="inline-flex items-center px-4 bg-gray-100 text-gray-600 font-bold text-sm border-r border-gray-200">+62</span>
+                            <!-- Input visual untuk user -->
+                            <input type="tel" id="whatsapp-user" required placeholder="878xxxxxxxx" class="w-full px-4 py-3 border-none focus:outline-none bg-white font-medium text-gray-800 placeholder-gray-400 text-sm">
+                            <!-- Input rahasia (hidden) yang akan dikirim ke Google Sheets -->
+                            <input type="hidden" id="whatsapp" name="whatsapp">
+                        </div>
                     </div>
-                </div>
+                </div> <!-- Memperbaiki tag div penutup grid yang hilang -->
             </section>
 
             <!-- C. RENCANA PEMBELAJARAN (SLOT JADWAL) -->
@@ -118,6 +122,8 @@
                 </h2>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- PILIHAN PAKET & INFO BIAYA -->
                     <div class="flex flex-col gap-2">
                         <label class="text-sm font-semibold text-gray-700">Pilihan Paket *</label>
                         <div class="flex flex-col sm:flex-row sm:items-center gap-4 h-12">
@@ -127,6 +133,10 @@
                             <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
                                 <input type="radio" name="paket" value="Small Group (2-3 Siswa)" class="text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Small Group (2-3 Siswa)
                             </label>
+                        </div>
+                        <!-- Kotak Informasi Biaya Dinamis -->
+                        <div id="infoBiaya" class="hidden mt-1 px-4 py-2 bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold rounded-lg text-sm w-fit transition-all duration-300">
+                            <!-- Teks biaya akan diisi oleh JavaScript -->
                         </div>
                     </div>
 
@@ -142,8 +152,8 @@
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label class="text-sm font-semibold text-gray-700">Pilihan Hari (Senin - Kamis) *</label>
-                        <div class="grid grid-cols-2 gap-3 mt-1">
+                        <label class="text-sm font-semibold text-gray-700">Pilihan Hari (Senin - Jumat) *</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-1">
                             <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
                                 <input type="checkbox" name="pilihanHari[]" value="Senin" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Senin
                             </label>
@@ -155,6 +165,10 @@
                             </label>
                             <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
                                 <input type="checkbox" name="pilihanHari[]" value="Kamis" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Kamis
+                            </label>
+                            <!-- Menambahkan hari Jumat -->
+                            <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                <input type="checkbox" name="pilihanHari[]" value="Jumat" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4"> Jumat
                             </label>
                         </div>
                     </div>
@@ -237,22 +251,46 @@
     <!-- HUBUNGKAN KE SCRIPT OOP -->
     <script src="js/form-handler.js"></script>
     <script>
-    // Menggabungkan angka 62 secara real-time saat orang tua mengetik nomor
-    const userInput = document.getElementById('whatsapp-user');
-    const hiddenInput = document.getElementById('whatsapp');
+        // ==========================================
+        // SCRIPT 1: FORMAT NOMOR WHATSAPP OTOMATIS
+        // ==========================================
+        const userInput = document.getElementById('whatsapp-user');
+        const hiddenInput = document.getElementById('whatsapp');
 
-    userInput.addEventListener('input', function() {
-        let val = this.value.trim();
-        
-        // Jika orang tua tidak sengaja mengetik angka 0 di depan, hapus otomatis
-        if (val.startsWith('0')) {
-            val = val.substring(1);
-            this.value = val;
+        if(userInput && hiddenInput) {
+            userInput.addEventListener('input', function() {
+                let val = this.value.trim();
+                
+                // Jika orang tua tidak sengaja mengetik angka 0 di depan, hapus otomatis
+                if (val.startsWith('0')) {
+                    val = val.substring(1);
+                    this.value = val;
+                }
+                
+                // Masukkan format lengkap (62 + nomor) ke dalam hidden input untuk database
+                hiddenInput.value = val ? '62' + val : '';
+            });
         }
-        
-        // Masukkan format lengkap (62 + nomor) ke dalam hidden input untuk database
-        hiddenInput.value = val ? '62' + val : '';
-    });
-</script>
+
+        // ==========================================
+        // SCRIPT 2: TAMPILKAN BIAYA BERDASARKAN PAKET
+        // ==========================================
+        const radioPaket = document.querySelectorAll('input[name="paket"]');
+        const infoBiaya = document.getElementById('infoBiaya');
+
+        radioPaket.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Hapus efek sembunyi (hidden) untuk memunculkan kotak
+                infoBiaya.classList.remove('hidden'); 
+                
+                // Cek isi dari radio button yang dipilih
+                if (this.value === 'Privat (1 Siswa)') {
+                    infoBiaya.innerHTML = '✨ Biaya: <strong>Rp 75.000</strong> / sesi';
+                } else if (this.value === 'Small Group (2-3 Siswa)') {
+                    infoBiaya.innerHTML = '✨ Biaya: <strong>Rp 50.000</strong> / siswa / sesi';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
