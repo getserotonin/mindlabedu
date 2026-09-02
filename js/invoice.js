@@ -1,94 +1,71 @@
-// Mengambil parameter 'id' dari URL (contoh: halaman.html?id=INV-202607-001)
 const urlParams = new URLSearchParams(window.location.search);
 const invoiceId = urlParams.get('id');
-
-// URL Web App dari Google Apps Script 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKikzA4IHmfdVVTD1m4af5SDYM2mHCCJwbiS8szqVdkRDK7VP0k0wu6uxEMtajkljJeA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhhM3K0en9YlWcuG79KBG8eahtGEvBUUEC7HFH2ZjSdeRHJOAujb9jOWg5fiFdgvAZjA/exec';
 
 async function fetchInvoiceData() {
-    if (!invoiceId) {
-        alert('ID Invoice tidak ditemukan pada URL!');
-        return;
-    }
+    if (!invoiceId) return;
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = invoiceId;
 
     try {
-        // Melakukan request AJAX (Fetch) ke backend Google Apps Script
         const response = await fetch(`${SCRIPT_URL}?action=getInvoiceDetail&id=${invoiceId}`);
         const result = await response.json();
 
        if (result.status === 'success') {
             const data = result.data;
             
-            // Masukkan data dari spreadsheet ke elemen HTML
-            document.getElementById('inv-number').innerText = data.idInvoice;
-            document.getElementById('inv-date').innerText = data.tanggalTerbit;
-            document.getElementById('inv-period').innerText = data.periode;
-            document.getElementById('table-period').innerText = data.periode;
-            document.getElementById('student-name').innerText = data.namaSiswa;
-            document.getElementById('class-type').innerText = data.kelas;
-            document.getElementById('total-sessions').innerText = data.jumlahPertemuan;
+            // Fallback aman agar tidak tampil 'undefined'
+            document.getElementById('inv-number').innerText = data.idInvoice || '-';
+            document.getElementById('inv-date').innerText = data.tanggalTerbit || '-';
+            document.getElementById('inv-period').innerText = data.periode || '-';
+            document.getElementById('table-period').innerText = data.periode || '-';
+            document.getElementById('student-name').innerText = data.namaSiswa || '-';
             
-           // Data baru: Status & Biaya Per Sesi
+            const classTypeEl = document.getElementById('class-type');
+            if(classTypeEl) classTypeEl.innerText = data.kelas || 'Privat / Group';
+
+            document.getElementById('total-sessions').innerText = data.jumlahPertemuan || '0';
+            
+            // Keamanan konversi teks status
+            const statusText = String(data.statusBayar || 'Menunggu');
             const statusElement = document.getElementById('inv-status');
-            statusElement.innerText = data.statusBayar;
             
-            // 👇 TAMBAHKAN KODE INI UNTUK WARNA DINAMIS BADGE STATUS 👇
-            statusElement.className = 'status-badge'; // Reset kelas
-            if (data.statusBayar.toLowerCase().includes('lunas')) {
-                statusElement.classList.add('lunas');     // Hijau
+            statusElement.innerText = statusText;
+            statusElement.className = 'status-badge'; 
+            
+            if (statusText.toLowerCase().includes('lunas')) {
+                statusElement.classList.add('lunas');     
             } else {
-                statusElement.classList.add('menunggu');  // Merah
+                statusElement.classList.add('menunggu');  
             }
-            // 👆 BATAS PENAMBAHAN 👆
 
-            document.getElementById('fee-per-session').innerText = data.biayaPerSesi;            
-            // Karena kita menggunakan getDisplayValues(), totalBiaya sudah berwujud "Rp 105.000"
-            document.getElementById('subtotal-amount').innerText = data.totalBiaya;
-            document.getElementById('grand-total').innerText = data.totalBiaya;
+            document.getElementById('fee-per-session').innerText = data.biayaPerSesi || 'Rp 0';            
+            document.getElementById('subtotal-amount').innerText = data.totalBiaya || 'Rp 0';
+            document.getElementById('grand-total').innerText = data.totalBiaya || 'Rp 0';
             
-            // 👇 TAMBAHKAN LOGIKA INI DI SINI 👇
             const paymentContainer = document.getElementById('payment-methods-container');
-            
-            // Jika status bayar mengandung kata "Lunas" (mengabaikan huruf besar/kecil)
-            if (data.statusBayar.toLowerCase().includes('lunas')) {
-                paymentContainer.style.display = 'none'; // Sembunyikan kotak bank
+            if (statusText.toLowerCase().includes('lunas')) {
+                paymentContainer.style.display = 'none'; 
             } else {
-                paymentContainer.style.display = 'block'; // Tampilkan kotak bank
+                paymentContainer.style.display = 'block'; 
             }
-            // 👆 BATAS PENAMBAHAN 👆
-
         } else {
             alert('Data invoice tidak ditemukan di database.');
         }
     } catch (error) {
         console.error('Gagal mengambil data:', error);
-        alert('Terjadi kesalahan saat menghubungkan ke database.');
+        alert('Terjadi kesalahan koneksi ke server.');
     }
 }
 
-// Jalankan fungsi saat halaman selesai dimuat
 window.onload = fetchInvoiceData;
 
-
-// Fungsi untuk tombol "Cari"
 function searchInvoice() {
     const inputVal = document.getElementById('searchInput').value.trim();
     if (inputVal) {
-        // Mengarahkan ulang halaman ke URL dengan parameter id baru
         window.location.href = 'inv.html?id=' + encodeURIComponent(inputVal);
     } else {
         alert('Mohon ketik nomor invoice terlebih dahulu!');
     }
 }
-
-// Menangkap parameter URL otomatis saat halaman dibuka
-window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const invoiceId = urlParams.get('id');
-    
-    if (invoiceId) {
-        document.getElementById('searchInput').value = invoiceId;
-        // Panggil fungsi utama untuk mengambil data dari Google Apps Script di sini
-        // Contoh: fetchInvoiceData(invoiceId);
-    }
-});
